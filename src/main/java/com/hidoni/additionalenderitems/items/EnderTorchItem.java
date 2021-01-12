@@ -1,0 +1,63 @@
+package com.hidoni.additionalenderitems.items;
+
+import com.hidoni.additionalenderitems.entities.EnderTorchEntity;
+import com.hidoni.additionalenderitems.util.RayTraceUtil;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
+public class EnderTorchItem extends BlockItem
+{
+    public EnderTorchItem(Block blockIn, Properties builder)
+    {
+        super(blockIn, builder);
+    }
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context)
+    {
+        return super.onItemUse(context);
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
+    {
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        playerIn.setActiveHand(handIn);
+        if (worldIn instanceof ServerWorld)
+        {
+            Vector3d lookVec = playerIn.getLookVec();
+            int forwardNum = 20;
+            RayTraceResult rayTraceResult = RayTraceUtil.getTargetBlockResult(playerIn, worldIn, forwardNum);
+            if (rayTraceResult != null)
+            {
+                EnderTorchEntity enderTorchEntity = new EnderTorchEntity(worldIn, playerIn.getPosX(), playerIn.getPosYHeight(0.5D), playerIn.getPosZ());
+                enderTorchEntity.assignItem(itemstack);
+                enderTorchEntity.moveTowards(new BlockPos(rayTraceResult.getHitVec()));
+                worldIn.addEntity(enderTorchEntity);
+
+                worldIn.playSound((PlayerEntity) null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+                worldIn.playEvent((PlayerEntity) null, 1003, playerIn.getPosition(), 0);
+                if (!playerIn.abilities.isCreativeMode)
+                {
+                    itemstack.shrink(1);
+                }
+
+                playerIn.addStat(Stats.ITEM_USED.get(this));
+                playerIn.swing(handIn, true);
+                return ActionResult.resultSuccess(itemstack);
+            }
+        }
+
+        return ActionResult.resultConsume(itemstack);
+    }
+}

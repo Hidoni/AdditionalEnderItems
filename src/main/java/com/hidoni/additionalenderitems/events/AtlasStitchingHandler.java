@@ -1,0 +1,28 @@
+package com.hidoni.additionalenderitems.events;
+
+import com.hidoni.additionalenderitems.AdditionalEnderItems;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class AtlasStitchingHandler
+{
+    @SubscribeEvent
+    public static void onAtlasStiching(TextureStitchEvent.Pre event)
+    {
+        ResourceLocation stitching = event.getMap().getTextureLocation();
+        if (stitching.equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
+        {
+            boolean succeeded = event.addSprite(new ResourceLocation(AdditionalEnderItems.MOD_ID, "entity/ender_torch"));
+            if (!succeeded)
+            {
+                System.out.println("Failed to add ender_torch to texture atlas!");
+            }
+
+        }
+    }
+}
