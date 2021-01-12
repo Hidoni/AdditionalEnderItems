@@ -1,13 +1,11 @@
 package com.hidoni.additionalenderitems.data;
 
-import com.hidoni.additionalenderitems.AdditionalEnderItems;
-import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModItems;
-import com.hidoni.additionalenderitems.setup.ModTags;
-import net.minecraft.data.*;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.RecipeProvider;
+import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.function.Consumer;
 

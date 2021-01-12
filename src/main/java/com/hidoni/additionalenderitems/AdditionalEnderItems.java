@@ -3,7 +3,6 @@ package com.hidoni.additionalenderitems;
 import com.hidoni.additionalenderitems.events.ClientEventHandler;
 import com.hidoni.additionalenderitems.events.TeleportEventHandler;
 import com.hidoni.additionalenderitems.setup.Registration;
-import com.hidoni.additionalenderitems.world.gen.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
