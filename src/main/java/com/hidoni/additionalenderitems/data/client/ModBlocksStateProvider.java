@@ -17,6 +17,6 @@ public class ModBlocksStateProvider extends BlockStateProvider
     public void registerStatesAndModels()
     {
         simpleBlock(ModBlocks.ENDER_TORCH.get(), models().withExistingParent("ender_torch", mcLoc("block/template_torch")).texture("torch", modLoc("block/ender_torch")));
-
+        simpleBlock(ModBlocks.DISENCHANTING_TABLE.get(), models().cubeBottomTop("disenchanting_table", modLoc("block/disenchanting_table_side"), modLoc("block/disenchanting_table_bottom"), modLoc("block/disenchanting_table_top")));
     }
 }

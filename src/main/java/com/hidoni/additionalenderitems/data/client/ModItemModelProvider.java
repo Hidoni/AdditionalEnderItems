@@ -17,6 +17,8 @@ public class ModItemModelProvider extends ItemModelProvider
     @Override
     protected void registerModels()
     {
+        withExistingParent("disenchanting_table", modLoc("block/disenchanting_table"));
+
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 
         builder(itemGenerated, "ender_torch");

@@ -1,5 +1,6 @@
 package com.hidoni.additionalenderitems.data;
 
+import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -25,7 +26,16 @@ public class ModRecipeProvider extends RecipeProvider
                 .patternLine("Y")
                 .key('X', Items.ENDER_EYE)
                 .key('Y', Items.STICK)
-                .setGroup("AdditionalEnderItems").addCriterion("has_item", hasItem(Items.ENDER_EYE))
+                .addCriterion("has_item", hasItem(Items.ENDER_EYE))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.DISENCHANTING_TABLE.get())
+                .patternLine("XZX")
+                .patternLine("XXX")
+                .patternLine("YYY")
+                .key('X', Items.PHANTOM_MEMBRANE)
+                .key('Y', Items.END_STONE)
+                .key('Z', Items.LAPIS_LAZULI)
+                .addCriterion("has_item", hasItem(Items.END_STONE))
                 .build(consumer);
     }
 }
