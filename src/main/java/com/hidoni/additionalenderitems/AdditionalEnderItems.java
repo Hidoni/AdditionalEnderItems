@@ -64,20 +64,12 @@ public class AdditionalEnderItems
 
     private void enqueueIMC(final InterModEnqueueEvent event)
     {
-        // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () ->
-        {
-            LOGGER.info("Hello world from the MDK");
-            return "Hello world";
-        });
+
     }
 
     private void processIMC(final InterModProcessEvent event)
     {
-        // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m -> m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
+
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
