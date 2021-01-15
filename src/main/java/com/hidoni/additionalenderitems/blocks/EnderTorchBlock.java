@@ -2,6 +2,7 @@ package com.hidoni.additionalenderitems.blocks;
 
 import com.hidoni.additionalenderitems.tileentities.EnderTorchTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.item.BlockItemUseContext;
@@ -95,5 +96,11 @@ public class EnderTorchBlock extends TorchBlock
             return this.getDefaultState().with(ON_SOLID_GROUND, stateIsSolid);
         }
         return stateIn;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state)
+    {
+        return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 }
