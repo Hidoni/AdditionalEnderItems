@@ -37,7 +37,7 @@ public class EnderTorchTileEntityRenderer extends TileEntityRenderer<EnderTorchT
     {
         matrixStackIn.push();
         double modified = Math.sin((double) tileEntityIn.ticks / 10);
-        float y = 0.625F + (tileEntityIn.ON_SOLID_GROUND ? 0 : (float) MathHelper.lerp(modified, 0.05, -0.25));
+        float y = tileEntityIn.ON_SOLID_GROUND ? 0.625F : 0.5F + (float) MathHelper.lerp(modified, 0.1, -0.1);
         matrixStackIn.translate(0.44F, y, 0.5625F);
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180));
         IVertexBuilder ivertexbuilder = TEXTURE_TORCH.getBuffer(bufferIn, RenderType::getEntityCutout);
