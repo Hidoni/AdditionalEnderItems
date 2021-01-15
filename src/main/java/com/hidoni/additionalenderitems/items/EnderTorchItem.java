@@ -10,6 +10,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -37,25 +38,22 @@ public class EnderTorchItem extends BlockItem
         {
             Vector3d lookVec = playerIn.getLookVec();
             int forwardNum = 20;
-            RayTraceResult rayTraceResult = RayTraceUtil.getTargetBlockResult(playerIn, worldIn, forwardNum);
-            if (rayTraceResult != null)
+            BlockRayTraceResult rayTraceResult = RayTraceUtil.getTargetBlockResult(playerIn, worldIn, forwardNum);
+            EnderTorchEntity enderTorchEntity = new EnderTorchEntity(worldIn, playerIn.getPosX(), playerIn.getPosYHeight(0.5D), playerIn.getPosZ());
+            enderTorchEntity.assignItem(itemstack);
+            enderTorchEntity.moveTowards(rayTraceResult.getPos());
+            worldIn.addEntity(enderTorchEntity);
+
+            worldIn.playSound((PlayerEntity) null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+            worldIn.playEvent((PlayerEntity) null, 1003, playerIn.getPosition(), 0);
+            if (!playerIn.abilities.isCreativeMode)
             {
-                EnderTorchEntity enderTorchEntity = new EnderTorchEntity(worldIn, playerIn.getPosX(), playerIn.getPosYHeight(0.5D), playerIn.getPosZ());
-                enderTorchEntity.assignItem(itemstack);
-                enderTorchEntity.moveTowards(new BlockPos(rayTraceResult.getHitVec()));
-                worldIn.addEntity(enderTorchEntity);
-
-                worldIn.playSound((PlayerEntity) null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-                worldIn.playEvent((PlayerEntity) null, 1003, playerIn.getPosition(), 0);
-                if (!playerIn.abilities.isCreativeMode)
-                {
-                    itemstack.shrink(1);
-                }
-
-                playerIn.addStat(Stats.ITEM_USED.get(this));
-                playerIn.swing(handIn, true);
-                return ActionResult.resultSuccess(itemstack);
+                itemstack.shrink(1);
             }
+
+            playerIn.addStat(Stats.ITEM_USED.get(this));
+            playerIn.swing(handIn, true);
+            return ActionResult.resultSuccess(itemstack);
         }
 
         return ActionResult.resultConsume(itemstack);

@@ -148,29 +148,37 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
 
     public void moveTowards(BlockPos pos)
     {
-        double d0 = (double) pos.getX();
-        int i = pos.getY();
-        double d1 = (double) pos.getZ();
-        double d2 = d0 - this.getPosX();
-        double d3 = d1 - this.getPosZ();
-        float f = MathHelper.sqrt(d2 * d2 + d3 * d3);
+        double posX = (double) pos.getX();
+        double posY = pos.getY();
+        double posZ = (double) pos.getZ();
+        double xOffset = posX - this.getPosX();
+        double zOffset = posZ - this.getPosZ();
+        double yOffset = posY - this.getPosY();
+        float f = MathHelper.sqrt(xOffset * xOffset + zOffset * zOffset);
 
-        if (d2 > 0)
+        if (xOffset > 0)
         {
-            this.targetX = d0 + 0.5d;
+            this.targetX = posX - 0.5d;
         }
         else
         {
-            this.targetX = d0 - 0.5d;
+            this.targetX = posX + 0.5d;
         }
-        this.targetY = (double) i;
-        if (d3 > 0)
+        if (yOffset > 0)
         {
-            this.targetZ = d1 + 0.5d;
+            this.targetY = posY + 0.5d;
         }
         else
         {
-            this.targetZ = d1 - 0.5d;
+            this.targetY = posY - 0.5d;
+        }
+        if (zOffset > 0)
+        {
+            this.targetZ = posZ - 0.5d;
+        }
+        else
+        {
+            this.targetZ = posZ + 0.5d;
         }
         this.despawnTimer = 0;
     }
@@ -222,8 +230,8 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
                 d6 *= 0.8D;
             }
 
-            int j = this.getPosY() < this.targetY ? 1 : -1;
-            vector3d = new Vector3d(Math.cos((double) f2) * d5, d6 + ((double) j - d6) * (double) 0.015F, Math.sin((double) f2) * d5);
+            double j = this.getPosY() < this.targetY ? 0.5F : -0.5F;
+            vector3d = new Vector3d(Math.cos((double) f2) * d5, d6 + (j - d6) * (double) 0.015F, Math.sin((double) f2) * d5);
             this.setMotion(vector3d);
         }
 

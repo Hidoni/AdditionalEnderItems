@@ -42,25 +42,12 @@ public class RayTraceUtil
         BlockRayTraceResult rayTraceResult = world.rayTraceBlocks(new RayTraceContext(vec3, vec3b, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.ANY, player));
 
 
-        double xm = rayTraceResult.getHitVec().getX();
-        double ym = rayTraceResult.getHitVec().getY();
-        double zm = rayTraceResult.getHitVec().getZ();
+        Vector3d hitVec = rayTraceResult.getHitVec();
+        double xm = hitVec.getX();
+        double ym = hitVec.getY();
+        double zm = hitVec.getZ();
 
-
-        if (rayTraceResult.getFace() == Direction.SOUTH)
-        {
-            zm--;
-        }
-        if (rayTraceResult.getFace() == Direction.EAST)
-        {
-            xm--;
-        }
-        if (rayTraceResult.getFace() == Direction.UP)
-        {
-            ym--;
-        }
-
-        return new BlockRayTraceResult(rayTraceResult.getHitVec(), rayTraceResult.getFace(), new BlockPos(xm, ym, zm), false);
+        return new BlockRayTraceResult(hitVec, rayTraceResult.getFace(), new BlockPos(xm, ym, zm), false);
     }
 
 }
