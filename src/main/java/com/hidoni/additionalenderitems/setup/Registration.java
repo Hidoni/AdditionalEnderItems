@@ -4,6 +4,7 @@ import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,6 +19,8 @@ public class Registration
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, AdditionalEnderItems.MOD_ID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, AdditionalEnderItems.MOD_ID);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, AdditionalEnderItems.MOD_ID);
+    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, AdditionalEnderItems.MOD_ID);
+
 
     public static void register()
     {
@@ -27,11 +30,13 @@ public class Registration
         ENCHANTMENTS.register(modEventBus);
         ENTITIES.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
+        CONTAINERS.register(modEventBus);
 
         ModBlocks.register();
         ModItems.register();
         ModEnchantments.register();
         ModEntities.register();
         ModTileEntities.register();
+        ModContainers.register();
     }
 }

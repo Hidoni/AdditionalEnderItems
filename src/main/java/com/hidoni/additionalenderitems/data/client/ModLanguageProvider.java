@@ -24,5 +24,6 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModEnchantments.WARP_RESISTANCE.get(), "Warp Resistance");
 
         add("itemGroup.additionalenderitemsitemgroup", "Additional Ender Items");
+        add("container.disenchanting_table_title", "Disenchanting Table");
     }
 }
