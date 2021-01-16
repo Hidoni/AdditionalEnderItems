@@ -1,10 +1,9 @@
 package com.hidoni.additionalenderitems.blocks;
 
 import com.hidoni.additionalenderitems.tileentities.EnderTorchTileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TorchBlock;
+import net.minecraft.block.*;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
@@ -23,15 +22,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class EnderTorchBlock extends TorchBlock
+public class EnderTorchBlock extends TorchBlock implements IWaterLoggable
 {
 
     public static final BooleanProperty ON_SOLID_GROUND = BooleanProperty.create("on_solid_ground");
+    public static final BooleanProperty WATERLOGGED = BooleanProperty.create("waterlogged");
 
     public EnderTorchBlock(Properties properties, IParticleData particleData)
     {
         super(properties, particleData);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(ON_SOLID_GROUND, true));
+        this.setDefaultState(this.getStateContainer().getBaseState().with(ON_SOLID_GROUND, true).with(WATERLOGGED, false));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class EnderTorchBlock extends TorchBlock
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
-        builder.add(ON_SOLID_GROUND);
+        builder.add(ON_SOLID_GROUND, WATERLOGGED);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -80,22 +80,28 @@ public class EnderTorchBlock extends TorchBlock
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
         BlockPos pos = context.getPos();
-        if (!hasEnoughSolidSide(context.getWorld(), pos.down(), Direction.UP))
-        {
-            return this.getDefaultState().with(ON_SOLID_GROUND, Boolean.FALSE);
-        }
-        return this.getDefaultState();
+        FluidState fluidstate = context.getWorld().getFluidState(pos);
+        Boolean hasEnoughSolid = hasEnoughSolidSide(context.getWorld(), pos.down(), Direction.UP);
+        return this.getDefaultState().with(ON_SOLID_GROUND, hasEnoughSolid).with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
     }
 
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
     {
+        if (stateIn.get(WATERLOGGED)) {
+            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+        }
         if (facingPos.up().equals(currentPos))
         {
             Boolean stateIsSolid = !facingState.isAir(worldIn, facingPos) && hasEnoughSolidSide(worldIn, facingPos, Direction.UP);
-            return this.getDefaultState().with(ON_SOLID_GROUND, stateIsSolid);
+            return stateIn.with(ON_SOLID_GROUND, stateIsSolid);
         }
         return stateIn;
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
     @Override
