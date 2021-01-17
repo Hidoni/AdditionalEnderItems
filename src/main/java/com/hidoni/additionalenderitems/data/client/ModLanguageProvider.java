@@ -3,6 +3,7 @@ package com.hidoni.additionalenderitems.data.client;
 import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModEnchantments;
+import com.hidoni.additionalenderitems.setup.ModEntities;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -22,6 +23,8 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModBlocks.DISENCHANTING_TABLE.get(), "Disenchantment Table");
 
         add(ModEnchantments.WARP_RESISTANCE.get(), "Warp Resistance");
+
+        add(ModEntities.ENDER_PHANTOM.get(), "Ender Phantom");
 
         add("itemGroup.additionalenderitemsitemgroup", "Additional Ender Items");
         add("container.disenchanting_table_title", "Disenchanting Table");

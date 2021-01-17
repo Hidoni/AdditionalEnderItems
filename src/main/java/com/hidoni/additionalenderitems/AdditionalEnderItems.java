@@ -1,9 +1,13 @@
 package com.hidoni.additionalenderitems;
 
+import com.hidoni.additionalenderitems.entities.EnderPhantomEntity;
 import com.hidoni.additionalenderitems.events.ClientEventHandler;
 import com.hidoni.additionalenderitems.events.TeleportEventHandler;
+import com.hidoni.additionalenderitems.setup.ModEntities;
 import com.hidoni.additionalenderitems.setup.Registration;
 import net.minecraft.block.Block;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -52,6 +56,7 @@ public class AdditionalEnderItems
         //OreGeneration.registerOres();
         LOGGER.info("Registering To Event Busses...");
         MinecraftForge.EVENT_BUS.register(new TeleportEventHandler());
+        GlobalEntityTypeAttributes.put(ModEntities.ENDER_PHANTOM.get(), EnderPhantomEntity.func_233666_p_().createMutableAttribute(Attributes.ATTACK_DAMAGE).create());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
