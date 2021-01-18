@@ -20,6 +20,7 @@ public class ModLanguageProvider extends LanguageProvider
     protected void addTranslations()
     {
         add(ModItems.ENDER_TORCH.get(), "Ender Torch");
+        add(ModItems.ENDER_PHANTOM_SPAWN_EGG.get(), "Ender Phantom Spawn Egg");
         add(ModBlocks.DISENCHANTING_TABLE.get(), "Disenchantment Table");
 
         add(ModEnchantments.WARP_RESISTANCE.get(), "Warp Resistance");

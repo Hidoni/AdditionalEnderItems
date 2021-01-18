@@ -3,13 +3,17 @@ package com.hidoni.additionalenderitems;
 import com.hidoni.additionalenderitems.entities.EnderPhantomEntity;
 import com.hidoni.additionalenderitems.events.ClientEventHandler;
 import com.hidoni.additionalenderitems.events.TeleportEventHandler;
+import com.hidoni.additionalenderitems.items.ModdedSpawnEggItem;
 import com.hidoni.additionalenderitems.setup.ModEntities;
 import com.hidoni.additionalenderitems.setup.Registration;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -56,7 +60,7 @@ public class AdditionalEnderItems
         //OreGeneration.registerOres();
         LOGGER.info("Registering To Event Busses...");
         MinecraftForge.EVENT_BUS.register(new TeleportEventHandler());
-        GlobalEntityTypeAttributes.put(ModEntities.ENDER_PHANTOM.get(), EnderPhantomEntity.func_233666_p_().createMutableAttribute(Attributes.ATTACK_DAMAGE).create());
+        GlobalEntityTypeAttributes.put(ModEntities.ENDER_PHANTOM.get(), MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.MAX_HEALTH, EnderPhantomEntity.BASE_HEALTH).create());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
@@ -95,6 +99,11 @@ public class AdditionalEnderItems
         {
             // register a new block here
             LOGGER.info("HELLO from Register Block");
+        }
+
+        @SubscribeEvent(priority = EventPriority.LOWEST)
+        public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
+            ModdedSpawnEggItem.initUnaddedEggs();
         }
     }
 }

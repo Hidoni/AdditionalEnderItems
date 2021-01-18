@@ -18,6 +18,7 @@ public class ModItemModelProvider extends ItemModelProvider
     protected void registerModels()
     {
         withExistingParent("disenchanting_table", modLoc("block/disenchanting_table"));
+        withExistingParent("ender_phantom_spawn_egg", mcLoc("item/template_spawn_egg"));
 
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 

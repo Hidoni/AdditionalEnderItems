@@ -36,6 +36,8 @@ import java.util.List;
 public class EnderPhantomEntity extends FlyingEntity implements IMob
 {
     private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(EnderPhantomEntity.class, DataSerializers.VARINT);
+    public static final double BASE_DAMAGE = 8.0D;
+    public static final double BASE_HEALTH = 30.0D;
     private Vector3d orbitOffset = Vector3d.ZERO;
     private BlockPos orbitPosition = BlockPos.ZERO;
     private EnderPhantomEntity.AttackPhase attackPhase = EnderPhantomEntity.AttackPhase.CIRCLE;
@@ -46,11 +48,13 @@ public class EnderPhantomEntity extends FlyingEntity implements IMob
         this.experienceValue = 10;
         this.moveController = new EnderPhantomEntity.MoveHelperController(this);
         this.lookController = new EnderPhantomEntity.LookHelperController(this);
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(BASE_DAMAGE);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(BASE_HEALTH);
     }
 
     public EnderPhantomEntity(FMLPlayMessages.SpawnEntity packet, World worldIn)
     {
-        super(ModEntities.ENDER_PHANTOM.get(), worldIn);
+        this(ModEntities.ENDER_PHANTOM.get(), worldIn);
         this.setPosition(packet.getPosX(), packet.getPosY(), packet.getPosZ());
     }
 
@@ -81,7 +85,8 @@ public class EnderPhantomEntity extends FlyingEntity implements IMob
     private void updatePhantomSize()
     {
         this.recalculateSize();
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue((double) (6 + this.getPhantomSize()));
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(BASE_DAMAGE + this.getPhantomSize());
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(BASE_HEALTH + this.getPhantomSize());
     }
 
     public int getPhantomSize()
@@ -380,9 +385,9 @@ public class EnderPhantomEntity extends FlyingEntity implements IMob
             float f7 = (float) (-(MathHelper.atan2((double) (-f1), d0) * (double) (180F / (float) Math.PI)));
             EnderPhantomEntity.this.rotationPitch = f7;
             float f8 = EnderPhantomEntity.this.rotationYaw + 90.0F;
-            double d3 = (double) (this.speedFactor * MathHelper.cos(f8 * ((float) Math.PI / 180F))) * Math.abs((double) f / d2);
-            double d4 = (double) (this.speedFactor * MathHelper.sin(f8 * ((float) Math.PI / 180F))) * Math.abs((double) f2 / d2);
-            double d5 = (double) (this.speedFactor * MathHelper.sin(f7 * ((float) Math.PI / 180F))) * Math.abs((double) f1 / d2);
+            double d3 = (double) (1.1F * this.speedFactor * MathHelper.cos(f8 * ((float) Math.PI / 180F))) * Math.abs((double) f / d2);
+            double d4 = (double) (1.1F * this.speedFactor * MathHelper.sin(f8 * ((float) Math.PI / 180F))) * Math.abs((double) f2 / d2);
+            double d5 = (double) (1.1F * this.speedFactor * MathHelper.sin(f7 * ((float) Math.PI / 180F))) * Math.abs((double) f1 / d2);
             Vector3d vector3d = EnderPhantomEntity.this.getMotion();
             EnderPhantomEntity.this.setMotion(vector3d.add((new Vector3d(d3, d5, d4)).subtract(vector3d).scale(0.2D)));
         }
