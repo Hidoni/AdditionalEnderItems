@@ -1,6 +1,7 @@
 package com.hidoni.additionalenderitems;
 
 import com.hidoni.additionalenderitems.entities.EnderPhantomEntity;
+import com.hidoni.additionalenderitems.events.BiomeLoadingHandler;
 import com.hidoni.additionalenderitems.events.ClientEventHandler;
 import com.hidoni.additionalenderitems.events.TeleportEventHandler;
 import com.hidoni.additionalenderitems.items.ModdedSpawnEggItem;
@@ -60,6 +61,7 @@ public class AdditionalEnderItems
         //OreGeneration.registerOres();
         LOGGER.info("Registering To Event Busses...");
         MinecraftForge.EVENT_BUS.register(new TeleportEventHandler());
+        MinecraftForge.EVENT_BUS.register(new BiomeLoadingHandler());
         GlobalEntityTypeAttributes.put(ModEntities.ENDER_PHANTOM.get(), MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.MAX_HEALTH, EnderPhantomEntity.BASE_HEALTH).create());
     }
 
@@ -87,23 +89,5 @@ public class AdditionalEnderItems
     {
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents
-    {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
-        {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
-            ModdedSpawnEggItem.initUnaddedEggs();
-        }
     }
 }

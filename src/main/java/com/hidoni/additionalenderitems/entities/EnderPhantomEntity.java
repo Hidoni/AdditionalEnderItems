@@ -21,6 +21,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -31,13 +32,14 @@ import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Random;
 
 // There's way too many things I need to change in PhantomEntity so I ended up just copy pasting the entire class, yes, this is awful.
 public class EnderPhantomEntity extends FlyingEntity implements IMob
 {
     private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(EnderPhantomEntity.class, DataSerializers.VARINT);
     public static final double BASE_DAMAGE = 8.0D;
-    public static final double BASE_HEALTH = 30.0D;
+    public static final double BASE_HEALTH = 40.0D;
     private Vector3d orbitOffset = Vector3d.ZERO;
     private BlockPos orbitPosition = BlockPos.ZERO;
     private EnderPhantomEntity.AttackPhase attackPhase = EnderPhantomEntity.AttackPhase.CIRCLE;
@@ -155,7 +157,7 @@ public class EnderPhantomEntity extends FlyingEntity implements IMob
 
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag)
     {
-        this.orbitPosition = this.getPosition().up(5);
+        this.orbitPosition = this.getPosition().up(5 + worldIn.getRandom().nextInt(10));
         this.setPhantomSize(0);
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -236,6 +238,12 @@ public class EnderPhantomEntity extends FlyingEntity implements IMob
         EntitySize entitysize = super.getSize(poseIn);
         float f = (entitysize.width + 0.2F * (float) i) / entitysize.width;
         return entitysize.scale(f);
+    }
+
+    public static boolean canSpawnOn(EntityType<? extends MobEntity> typeIn, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn)
+    {
+        BlockPos blockpos = pos.down();
+        return reason == SpawnReason.SPAWNER || worldIn.getBlockState(blockpos).canEntitySpawn(worldIn, blockpos, typeIn);
     }
 
     static enum AttackPhase
