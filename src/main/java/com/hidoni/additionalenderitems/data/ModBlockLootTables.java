@@ -16,6 +16,7 @@ public class ModBlockLootTables extends BlockLootTables
     {
         registerDropping(ModBlocks.ENDER_TORCH.get(), ModItems.ENDER_TORCH.get());
         registerDropSelfLootTable(ModBlocks.DISENCHANTING_TABLE.get());
+        registerDropSelfLootTable(ModBlocks.ENDER_JUKEBOX.get());
     }
 
     @Override

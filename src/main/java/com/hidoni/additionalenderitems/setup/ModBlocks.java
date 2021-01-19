@@ -1,6 +1,7 @@
 package com.hidoni.additionalenderitems.setup;
 
 import com.hidoni.additionalenderitems.blocks.DisenchantingBlock;
+import com.hidoni.additionalenderitems.blocks.EnderJukeboxBlock;
 import com.hidoni.additionalenderitems.blocks.EnderTorchBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -20,6 +21,7 @@ public class ModBlocks
         return 14;
     }).sound(SoundType.WOOD), ParticleTypes.PORTAL));
     public static final RegistryObject<Block> DISENCHANTING_TABLE = register("disenchanting_table", () -> new DisenchantingBlock(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(5.0F, 1200.0F).setRequiresTool()));
+    public static final RegistryObject<Block> ENDER_JUKEBOX = register("ender_jukebox", () -> new EnderJukeboxBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 6.0F)));
 
     static void register()
     {

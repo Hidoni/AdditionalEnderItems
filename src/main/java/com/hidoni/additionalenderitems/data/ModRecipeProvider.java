@@ -37,5 +37,13 @@ public class ModRecipeProvider extends RecipeProvider
                 .key('Z', Items.LAPIS_LAZULI)
                 .addCriterion("has_item", hasItem(Items.END_STONE))
                 .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.ENDER_JUKEBOX.get())
+                .patternLine(" X ")
+                .patternLine("XYX")
+                .patternLine(" X ")
+                .key('X', Items.ENDER_PEARL)
+                .key('Y', Items.JUKEBOX)
+                .addCriterion("has_item", hasItem(Items.ENDER_PEARL))
+                .build(consumer);
     }
 }
