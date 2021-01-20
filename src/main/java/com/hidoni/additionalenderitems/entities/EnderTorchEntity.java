@@ -148,9 +148,9 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
 
     public void moveTowards(BlockPos pos)
     {
-        double posX = (double) pos.getX();
+        double posX = pos.getX();
         double posY = pos.getY();
-        double posZ = (double) pos.getZ();
+        double posZ = pos.getZ();
         double xOffset = posX - this.getPosX();
         double zOffset = posZ - this.getPosZ();
         double yOffset = posY - this.getPosY();
@@ -195,7 +195,7 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
         {
             float f = MathHelper.sqrt(x * x + z * z);
             this.rotationYaw = (float) (MathHelper.atan2(x, z) * (double) (180F / (float) Math.PI));
-            this.rotationPitch = (float) (MathHelper.atan2(y, (double) f) * (double) (180F / (float) Math.PI));
+            this.rotationPitch = (float) (MathHelper.atan2(y, f) * (double) (180F / (float) Math.PI));
             this.prevRotationYaw = this.rotationYaw;
             this.prevRotationPitch = this.rotationPitch;
         }
@@ -214,7 +214,7 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
         double d1 = this.getPosY() + vector3d.y;
         double d2 = this.getPosZ() + vector3d.z;
         float f = MathHelper.sqrt(horizontalMag(vector3d));
-        this.rotationPitch = func_234614_e_(this.prevRotationPitch, (float) (MathHelper.atan2(vector3d.y, (double) f) * (double) (180F / (float) Math.PI)));
+        this.rotationPitch = func_234614_e_(this.prevRotationPitch, (float) (MathHelper.atan2(vector3d.y, f) * (double) (180F / (float) Math.PI)));
         this.rotationYaw = func_234614_e_(this.prevRotationYaw, (float) (MathHelper.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI)));
         if (!this.world.isRemote)
         {
@@ -222,7 +222,7 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
             double d4 = this.targetZ - d2;
             float f1 = (float) Math.sqrt(d3 * d3 + d4 * d4);
             float f2 = (float) MathHelper.atan2(d4, d3);
-            double d5 = MathHelper.lerp(0.0025D, (double) f, (double) f1);
+            double d5 = MathHelper.lerp(0.0025D, f, f1);
             double d6 = vector3d.y;
             if (f1 < 1.0F)
             {
@@ -231,7 +231,7 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
             }
 
             double j = this.getPosY() < this.targetY ? 0.5F : -0.5F;
-            vector3d = new Vector3d(Math.cos((double) f2) * d5, d6 + (j - d6) * (double) 0.015F, Math.sin((double) f2) * d5);
+            vector3d = new Vector3d(Math.cos(f2) * d5, d6 + (j - d6) * (double) 0.015F, Math.sin(f2) * d5);
             this.setMotion(vector3d);
         }
 

@@ -42,8 +42,8 @@ public class EnderTorchItem extends BlockItem
             enderTorchEntity.moveTowards(rayTraceResult.getPos());
             worldIn.addEntity(enderTorchEntity);
 
-            worldIn.playSound((PlayerEntity) null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-            worldIn.playEvent((PlayerEntity) null, 1003, playerIn.getPosition(), 0);
+            worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+            worldIn.playEvent(null, 1003, playerIn.getPosition(), 0);
             if (!playerIn.abilities.isCreativeMode)
             {
                 itemstack.shrink(1);

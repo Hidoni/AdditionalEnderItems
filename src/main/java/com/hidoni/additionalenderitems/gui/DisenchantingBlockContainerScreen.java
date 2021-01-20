@@ -11,7 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class DisenchantingBlockContainerScreen extends ContainerScreen<DisenchantingBlockContainer>
 {
-    private ResourceLocation GUI = new ResourceLocation(AdditionalEnderItems.MOD_ID, "textures/gui/disenchanting_table.png");
+    private final ResourceLocation GUI = new ResourceLocation(AdditionalEnderItems.MOD_ID, "textures/gui/disenchanting_table.png");
 
     public DisenchantingBlockContainerScreen(DisenchantingBlockContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {

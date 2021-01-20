@@ -23,7 +23,7 @@ import java.util.Map;
 public class MusicDiscPlayingUtil
 {
     private static Minecraft mc = null;
-    private static Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
+    private static final Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
 
     public static void setMinecraft(Minecraft mcIn)
     {
@@ -38,7 +38,7 @@ public class MusicDiscPlayingUtil
         }
         else
         {
-            playRecord((SoundEvent) null, blockPosIn, null);
+            playRecord(null, blockPosIn, null);
         }
     }
 
@@ -59,7 +59,7 @@ public class MusicDiscPlayingUtil
                 mc.ingameGUI.func_238451_a_(musicdiscitem.getDescription());
             }
 
-            ISound simplesound = new SimpleSound(soundIn.getName(), SoundCategory.RECORDS, 4.0F, 1.0F, false, 0, ISound.AttenuationType.NONE, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), false);
+            ISound simplesound = new SimpleSound(soundIn.getName(), SoundCategory.RECORDS, 4.0F, 1.0F, false, 0, ISound.AttenuationType.NONE, pos.getX(), pos.getY(), pos.getZ(), false);
             mapSoundPositions.put(pos, simplesound);
             mc.getSoundHandler().play(simplesound);
         }
