@@ -15,11 +15,13 @@ public class EnderPhantomEyesLayer<T extends Entity> extends AbstractEyesLayer<T
 {
     private static final RenderType field_229138_a_ = RenderType.getEyes(new ResourceLocation(AdditionalEnderItems.MOD_ID, "textures/entity/phantom_eyes.png"));
 
-    public EnderPhantomEyesLayer(IEntityRenderer<T, PhantomModel<T>> p_i50928_1_) {
+    public EnderPhantomEyesLayer(IEntityRenderer<T, PhantomModel<T>> p_i50928_1_)
+    {
         super(p_i50928_1_);
     }
 
-    public RenderType getRenderType() {
+    public RenderType getRenderType()
+    {
         return field_229138_a_;
     }
 }

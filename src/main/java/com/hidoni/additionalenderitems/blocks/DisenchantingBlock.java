@@ -1,21 +1,15 @@
 package com.hidoni.additionalenderitems.blocks;
 
 import com.hidoni.additionalenderitems.containers.DisenchantingBlockContainer;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.GrindstoneContainer;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.stats.Stats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
@@ -50,17 +44,23 @@ public class DisenchantingBlock extends ContainerBlock
         return null;
     }
 
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (worldIn.isRemote) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    {
+        if (worldIn.isRemote)
+        {
             return ActionResultType.SUCCESS;
-        } else {
+        }
+        else
+        {
             NetworkHooks.openGui((ServerPlayerEntity) player, state.getContainer(worldIn, pos), pos);
             return ActionResultType.CONSUME;
         }
     }
 
-    public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
-        return new SimpleNamedContainerProvider((id, inventory, player) -> {
+    public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos)
+    {
+        return new SimpleNamedContainerProvider((id, inventory, player) ->
+        {
             return new DisenchantingBlockContainer(id, inventory, IWorldPosCallable.of(worldIn, pos));
         }, CONTAINER_NAME);
     }

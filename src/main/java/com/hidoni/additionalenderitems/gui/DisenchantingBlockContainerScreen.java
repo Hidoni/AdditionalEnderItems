@@ -34,7 +34,8 @@ public class DisenchantingBlockContainerScreen extends ContainerScreen<Disenchan
         int relX = (this.width - this.xSize) / 2;
         int relY = (this.height - this.ySize) / 2;
         this.blit(matrixStack, relX, relY, 0, 0, this.xSize, this.ySize);
-        if ((this.container.getSlot(0).getHasStack() && this.container.getSlot(1).getHasStack()) && this.container.getSlot(2).getHasStack() && !this.container.getSlot(3).getHasStack()) {
+        if ((this.container.getSlot(0).getHasStack() && this.container.getSlot(1).getHasStack()) && this.container.getSlot(2).getHasStack() && !this.container.getSlot(3).getHasStack())
+        {
             this.blit(matrixStack, relX + 92, relY + 31, this.xSize, 0, 28, 21);
         }
         if (this.container.requiredLevel != 0)

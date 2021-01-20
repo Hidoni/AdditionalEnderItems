@@ -88,7 +88,8 @@ public class EnderTorchBlock extends TorchBlock implements IWaterLoggable
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
     {
-        if (stateIn.get(WATERLOGGED)) {
+        if (stateIn.get(WATERLOGGED))
+        {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
         if (facingPos.up().equals(currentPos))
@@ -100,7 +101,8 @@ public class EnderTorchBlock extends TorchBlock implements IWaterLoggable
     }
 
     @Override
-    public FluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(BlockState state)
+    {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 

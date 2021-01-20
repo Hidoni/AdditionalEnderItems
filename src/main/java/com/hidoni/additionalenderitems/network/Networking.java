@@ -25,6 +25,6 @@ public class Networking
 
     public static void sendAll(Object packet)
     {
-            INSTANCE.send(PacketDistributor.ALL.noArg(), packet);
+        INSTANCE.send(PacketDistributor.ALL.noArg(), packet);
     }
 }

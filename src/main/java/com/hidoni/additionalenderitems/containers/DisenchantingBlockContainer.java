@@ -1,8 +1,6 @@
 package com.hidoni.additionalenderitems.containers;
 
 import com.google.common.collect.Maps;
-import com.hidoni.additionalenderitems.blocks.DisenchantingBlock;
-import com.hidoni.additionalenderitems.gui.DisenchantingBlockContainerScreen;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModContainers;
 import net.minecraft.enchantment.Enchantment;

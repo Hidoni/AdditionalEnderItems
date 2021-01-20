@@ -26,7 +26,7 @@ public class ModEntityLootTables extends EntityLootTables
     protected Iterable<EntityType<?>> getKnownEntities()
     {
         return ForgeRegistries.ENTITIES.getValues().stream()
-            .filter(entity -> AdditionalEnderItems.MOD_ID.equals(entity.getRegistryName().getNamespace()))
-            .collect(Collectors.toSet());
+                .filter(entity -> AdditionalEnderItems.MOD_ID.equals(entity.getRegistryName().getNamespace()))
+                .collect(Collectors.toSet());
     }
 }
