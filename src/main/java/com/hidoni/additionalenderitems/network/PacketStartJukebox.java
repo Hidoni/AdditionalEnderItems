@@ -7,32 +7,36 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class PacketStopJukebox
+public class PacketStartJukebox
 {
     private final BlockPos pos;
+    private int data;
 
-    public PacketStopJukebox(PacketBuffer buf)
+    public PacketStartJukebox(PacketBuffer buf)
     {
         pos = buf.readBlockPos();
+        data = buf.readInt();
     }
 
-    public PacketStopJukebox(BlockPos posIn)
+    public PacketStartJukebox(BlockPos posIn, int dataIn)
     {
         this.pos = posIn;
+        this.data = dataIn;
     }
 
     public void toBytes(PacketBuffer buf)
     {
         buf.writeBlockPos(pos);
+        buf.writeInt(data);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> ctx)
     {
         ctx.get().enqueueWork(() ->
         {
-            if (MusicDiscPlayingUtil.alreadyPlaying(pos))
+            if (!MusicDiscPlayingUtil.alreadyPlaying(pos))
             {
-                MusicDiscPlayingUtil.playEvent(pos, 0);
+                MusicDiscPlayingUtil.playEvent(pos, data);
             }
         });
         return true;

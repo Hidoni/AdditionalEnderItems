@@ -1,6 +1,7 @@
 package com.hidoni.additionalenderitems.blocks;
 
 import com.hidoni.additionalenderitems.network.Networking;
+import com.hidoni.additionalenderitems.network.PacketStartJukebox;
 import com.hidoni.additionalenderitems.network.PacketStopJukebox;
 import com.hidoni.additionalenderitems.tileentities.EnderJukeboxTileEntity;
 import com.hidoni.additionalenderitems.util.MusicDiscPlayingUtil;
@@ -27,8 +28,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
@@ -61,6 +60,10 @@ public class EnderJukeboxBlock extends ContainerBlock
                 if (worldIn.isRemote())
                 {
                     MusicDiscPlayingUtil.playEvent(pos, Item.getIdFromItem(currentItem.getItem()));
+                }
+                else
+                {
+                    Networking.sendChunkTrackers(new PacketStartJukebox(pos, Item.getIdFromItem(currentItem.getItem())), worldIn.getChunkAt(pos));
                 }
                 if (!player.isCreative())
                 {
@@ -106,6 +109,7 @@ public class EnderJukeboxBlock extends ContainerBlock
                     worldIn.addEntity(itementity);
                 }
             }
+            Networking.sendAll(new PacketStopJukebox(pos));
         }
         else
         {
@@ -118,7 +122,6 @@ public class EnderJukeboxBlock extends ContainerBlock
         if (!state.isIn(newState.getBlock()))
         {
             this.dropRecord(worldIn, pos);
-            Networking.sendAll(new PacketStopJukebox(pos));
             super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
     }

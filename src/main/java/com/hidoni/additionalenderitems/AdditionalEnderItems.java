@@ -1,7 +1,7 @@
 package com.hidoni.additionalenderitems;
 
 import com.hidoni.additionalenderitems.config.Config;
-import com.hidoni.additionalenderitems.entities.EnderPhantomEntity;
+import com.hidoni.additionalenderitems.config.EntityConfig;
 import com.hidoni.additionalenderitems.events.BiomeLoadingHandler;
 import com.hidoni.additionalenderitems.events.ClientEventHandler;
 import com.hidoni.additionalenderitems.events.TeleportEventHandler;
@@ -59,7 +59,7 @@ public class AdditionalEnderItems
         LOGGER.info("Registering To Event Busses...");
         MinecraftForge.EVENT_BUS.register(new TeleportEventHandler());
         MinecraftForge.EVENT_BUS.register(new BiomeLoadingHandler());
-        GlobalEntityTypeAttributes.put(ModEntities.ENDER_PHANTOM.get(), MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.MAX_HEALTH, EnderPhantomEntity.BASE_HEALTH).create());
+        GlobalEntityTypeAttributes.put(ModEntities.ENDER_PHANTOM.get(), MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.MAX_HEALTH, EntityConfig.enderPhantomBaseHealth.get()).create());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)

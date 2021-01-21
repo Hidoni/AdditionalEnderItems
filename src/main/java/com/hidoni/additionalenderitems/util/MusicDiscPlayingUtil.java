@@ -74,4 +74,9 @@ public class MusicDiscPlayingUtil
             livingentity.setPartying(pos, isPartying);
         }
     }
+
+    public static boolean alreadyPlaying(BlockPos pos)
+    {
+        return mapSoundPositions.containsKey(pos);
+    }
 }

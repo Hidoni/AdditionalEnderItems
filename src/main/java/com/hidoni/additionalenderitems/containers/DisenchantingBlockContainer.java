@@ -202,7 +202,7 @@ public class DisenchantingBlockContainer extends Container
                 this.detectAndSendChanges();
                 return;
             }
-            if (enchantmentToRemove.isCurse() || enchantmentToRemove.isTreasureEnchantment())
+            if ((BlockConfig.disenchantingCursedItemPenalty.get() && enchantmentToRemove.isCurse()) || (BlockConfig.disenchantingTreasureItemPenalty.get() && enchantmentToRemove.isTreasureEnchantment()))
             {
                 requiredLevel = 5;
             }

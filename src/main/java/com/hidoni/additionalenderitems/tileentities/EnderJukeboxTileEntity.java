@@ -52,6 +52,6 @@ public class EnderJukeboxTileEntity extends TileEntity implements IClearable
     @Override
     public void clear()
     {
-
+        this.setRecord(ItemStack.EMPTY);
     }
 }
