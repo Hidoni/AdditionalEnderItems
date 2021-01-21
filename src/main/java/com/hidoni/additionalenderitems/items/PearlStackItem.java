@@ -1,8 +1,10 @@
 package com.hidoni.additionalenderitems.items;
 
+import com.hidoni.additionalenderitems.config.Config;
+import com.hidoni.additionalenderitems.config.ItemConfig;
+import com.hidoni.additionalenderitems.setup.ModItems;
 import net.minecraft.entity.item.EnderPearlEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.EnderPearlItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -13,8 +15,6 @@ import net.minecraft.world.World;
 
 public class PearlStackItem extends Item
 {
-    public final int MAX_PEARLS = 255;
-
     public PearlStackItem(Properties properties)
     {
         super(properties);
@@ -43,7 +43,7 @@ public class PearlStackItem extends Item
         if (!worldIn.isRemote)
         {
             EnderPearlEntity enderpearlentity = new EnderPearlEntity(worldIn, playerIn);
-            enderpearlentity.setItem(itemstack);
+            enderpearlentity.setItem(new ItemStack(Items.ENDER_PEARL));
             enderpearlentity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
             worldIn.addEntity(enderpearlentity);
         }
@@ -62,7 +62,7 @@ public class PearlStackItem extends Item
     {
         if (stack.hasTag())
         {
-            return stack.getTag().getInt("pearls") != MAX_PEARLS;
+            return stack.getTag().getInt("pearls") != ItemConfig.maxPearlsInStackItem.get();
         }
         return false;
     }
@@ -72,17 +72,30 @@ public class PearlStackItem extends Item
     {
         if (stack.hasTag())
         {
-            return 1.0D - (double)stack.getTag().getInt("pearls") / (double) MAX_PEARLS;
+            return 1.0D - (double)stack.getTag().getInt("pearls") / (double) ItemConfig.maxPearlsInStackItem.get();
         }
         return 1;
     }
 
-    private CompoundNBT createNBT()
+    public static CompoundNBT createNBT()
     {
         CompoundNBT returnNBT = new CompoundNBT();
         returnNBT.putInt("pearls", 0);
+        returnNBT.putInt("newPearls", 0);
+        returnNBT.putBoolean("shouldReturn", true);
         return returnNBT;
     }
 
-
+    @Override
+    public ItemStack getContainerItem(ItemStack itemStack)
+    {
+        if (itemStack.getTag().getBoolean("shouldReturn"))
+        {
+            ItemStack returnStack = new ItemStack(ModItems.PEARL_STACK.get(), 1);
+            returnStack.setTag(createNBT());
+            returnStack.getTag().putInt("pearls", itemStack.getTag().getInt("newPearls"));
+            return itemStack;
+        }
+        return ItemStack.EMPTY;
+    }
 }

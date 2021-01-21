@@ -1,5 +1,6 @@
 package com.hidoni.additionalenderitems;
 
+import com.hidoni.additionalenderitems.config.Config;
 import com.hidoni.additionalenderitems.entities.EnderPhantomEntity;
 import com.hidoni.additionalenderitems.events.BiomeLoadingHandler;
 import com.hidoni.additionalenderitems.events.ClientEventHandler;
@@ -43,6 +44,8 @@ public class AdditionalEnderItems
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
+        Config.init();
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         Networking.registerMessages();
@@ -81,7 +84,6 @@ public class AdditionalEnderItems
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event)
     {
-        // do something when the server starts
-        LOGGER.info("HELLO from server starting");
+
     }
 }

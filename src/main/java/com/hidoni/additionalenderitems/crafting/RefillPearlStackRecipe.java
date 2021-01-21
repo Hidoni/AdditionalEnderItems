@@ -1,8 +1,12 @@
 package com.hidoni.additionalenderitems.crafting;
 
 import com.google.common.collect.Lists;
+import com.hidoni.additionalenderitems.config.Config;
+import com.hidoni.additionalenderitems.config.ItemConfig;
+import com.hidoni.additionalenderitems.items.PearlStackItem;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import com.hidoni.additionalenderitems.setup.ModRecipes;
+import javafx.util.Pair;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -47,21 +51,65 @@ public class RefillPearlStackRecipe extends SpecialRecipe
                 }
             }
         }
-        boolean allPearlStacksFlag = true;
-        for (ItemStack item : list)
-        {
-            if (item.getItem() != ModItems.PEARL_STACK.get())
-            {
-                allPearlStacksFlag = false;
-            }
-        }
+        boolean allPearlStacksFlag = list.size() == 2 && list.get(0).getItem() == list.get(1).getItem() && list.get(0).getItem() == ModItems.PEARL_STACK.get();
         return (pearlStackFound && pearlFound) || allPearlStacksFlag;
     }
 
     @Override
     public ItemStack getCraftingResult(CraftingInventory inv)
     {
-        return null;
+        Pair<Boolean, List<ItemStack>> validAndList = getValidAndList(inv);
+        if (!validAndList.getKey())
+        {
+            return ItemStack.EMPTY;
+        }
+        List<ItemStack> itemList = validAndList.getValue();
+        ItemStack primary = null;
+        for (ItemStack item : itemList)
+        {
+            if (item.getItem() == ModItems.PEARL_STACK.get())
+            {
+                primary = item;
+                break;
+            }
+        }
+        itemList.remove(primary);
+        if (!primary.hasTag())
+        {
+            primary.setTag(PearlStackItem.createNBT());
+            primary.getTag().putBoolean("shouldReturn", false);
+        }
+        ItemStack outItem = new ItemStack(ModItems.PEARL_STACK.get(), 1);
+        outItem.setTag(PearlStackItem.createNBT());
+        outItem.getTag().putInt("pearls", primary.getTag().getInt("pearls"));
+        for (ItemStack item : itemList)
+        {
+            if (item.getItem() == ModItems.PEARL_STACK.get())
+            {
+                int currentPearls = outItem.getTag().getInt("pearls");
+                int maxPearlsToTake = ItemConfig.maxPearlsInStackItem.get() - currentPearls;
+                int otherItemPearls = item.getTag().getInt("pearls");
+                if (otherItemPearls >= maxPearlsToTake)
+                {
+                    item.getTag().putInt("pearls", otherItemPearls - maxPearlsToTake);
+                    outItem.getTag().putInt("newPearls", currentPearls + maxPearlsToTake);
+                }
+                else
+                {
+                    item.getTag().putInt("newPearls", 0);
+                    outItem.getTag().putInt("pearls", currentPearls + otherItemPearls);
+                }
+            }
+            else
+            {
+                int currentPearls = outItem.getTag().getInt("pearls");
+                if (currentPearls != ItemConfig.maxPearlsInStackItem.get())
+                {
+                    outItem.getTag().putInt("pearls", currentPearls + 1);
+                }
+            }
+        }
+        return outItem;
     }
 
     @Override
@@ -74,5 +122,34 @@ public class RefillPearlStackRecipe extends SpecialRecipe
     public IRecipeSerializer<?> getSerializer()
     {
         return ModRecipes.PEARL_STACK_RECIPE.get();
+    }
+
+    public Pair<Boolean, List<ItemStack>> getValidAndList(CraftingInventory inv)
+    {
+        List<ItemStack> list = Lists.newArrayList();
+        boolean pearlStackFound = false;
+        boolean pearlFound = false;
+        for(int i = 0; i < inv.getSizeInventory(); ++i)
+        {
+            ItemStack itemstack = inv.getStackInSlot(i);
+            if (!itemstack.isEmpty())
+            {
+                list.add(itemstack);
+                if (itemstack.getItem() == ModItems.PEARL_STACK.get())
+                {
+                    pearlStackFound = true;
+                }
+                else if (itemstack.getItem() == Items.ENDER_PEARL)
+                {
+                    pearlFound = true;
+                }
+                else
+                {
+                    return new Pair(false, list);
+                }
+            }
+        }
+        boolean allPearlStacksFlag = list.size() == 2 && list.get(0).getItem() == list.get(1).getItem() && list.get(0).getItem() == ModItems.PEARL_STACK.get();
+        return new Pair((pearlStackFound && pearlFound) || allPearlStacksFlag, list);
     }
 }
