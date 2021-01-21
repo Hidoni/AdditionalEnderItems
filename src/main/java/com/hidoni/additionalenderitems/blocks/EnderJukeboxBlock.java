@@ -67,7 +67,7 @@ public class EnderJukeboxBlock extends ContainerBlock
                     currentItem.shrink(1);
                 }
                 player.addStat(Stats.PLAY_RECORD);
-                return ActionResultType.CONSUME;
+                return ActionResultType.func_233537_a_(worldIn.isRemote);
             }
             return ActionResultType.PASS;
         }
