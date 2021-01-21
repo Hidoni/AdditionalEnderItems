@@ -1,5 +1,6 @@
 package com.hidoni.additionalenderitems.entities;
 
+import com.hidoni.additionalenderitems.config.EntityConfig;
 import com.hidoni.additionalenderitems.setup.ModEntities;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -38,8 +39,6 @@ import java.util.Random;
 public class EnderPhantomEntity extends FlyingEntity implements IMob
 {
     private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(EnderPhantomEntity.class, DataSerializers.VARINT);
-    public static final double BASE_DAMAGE = 8.0D;
-    public static final double BASE_HEALTH = 40.0D;
     private Vector3d orbitOffset = Vector3d.ZERO;
     private BlockPos orbitPosition = BlockPos.ZERO;
     private EnderPhantomEntity.AttackPhase attackPhase = EnderPhantomEntity.AttackPhase.CIRCLE;
@@ -50,8 +49,8 @@ public class EnderPhantomEntity extends FlyingEntity implements IMob
         this.experienceValue = 10;
         this.moveController = new EnderPhantomEntity.MoveHelperController(this);
         this.lookController = new EnderPhantomEntity.LookHelperController(this);
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(BASE_DAMAGE);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(BASE_HEALTH);
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(EntityConfig.enderPhantomBaseDamage.get());
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(EntityConfig.enderPhantomBaseHealth.get());
     }
 
     public EnderPhantomEntity(FMLPlayMessages.SpawnEntity packet, World worldIn)
@@ -87,8 +86,8 @@ public class EnderPhantomEntity extends FlyingEntity implements IMob
     private void updatePhantomSize()
     {
         this.recalculateSize();
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(BASE_DAMAGE + this.getPhantomSize());
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(BASE_HEALTH + this.getPhantomSize());
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(EntityConfig.enderPhantomBaseDamage.get() + this.getPhantomSize());
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(EntityConfig.enderPhantomBaseHealth.get() + this.getPhantomSize());
     }
 
     public int getPhantomSize()

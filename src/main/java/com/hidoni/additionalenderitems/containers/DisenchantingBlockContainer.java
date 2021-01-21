@@ -1,6 +1,7 @@
 package com.hidoni.additionalenderitems.containers;
 
 import com.google.common.collect.Maps;
+import com.hidoni.additionalenderitems.config.BlockConfig;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModContainers;
 import net.minecraft.enchantment.Enchantment;
@@ -90,7 +91,7 @@ public class DisenchantingBlockContainer extends Container
                 boolean playerInSurvival = !playerEntityIn.isCreative();
                 if (playerInSurvival)
                 {
-                    if (removedEnchantment.isCurse() || removedEnchantment.isTreasureEnchantment())
+                    if ((BlockConfig.disenchantingCursedItemPenalty.get() && removedEnchantment.isCurse()) || (BlockConfig.disenchantingTreasureItemPenalty.get() && removedEnchantment.isTreasureEnchantment()))
                     {
                         removedEnchantmentLevelRequirement = 5;
                     }

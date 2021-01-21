@@ -22,6 +22,9 @@ public class Config
         builder.comment("Additional Ender Items Common Config File");
 
         ItemConfig.init(builder);
+        EntityConfig.init(builder);
+        EnchantmentConfig.init(builder);
+        BlockConfig.init(builder);
         config = builder.build();
     }
 

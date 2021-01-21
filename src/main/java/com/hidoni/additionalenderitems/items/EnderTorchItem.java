@@ -1,5 +1,6 @@
 package com.hidoni.additionalenderitems.items;
 
+import com.hidoni.additionalenderitems.config.ItemConfig;
 import com.hidoni.additionalenderitems.entities.EnderTorchEntity;
 import com.hidoni.additionalenderitems.util.RayTraceUtil;
 import net.minecraft.block.Block;
@@ -34,9 +35,7 @@ public class EnderTorchItem extends BlockItem
         playerIn.setActiveHand(handIn);
         if (worldIn instanceof ServerWorld)
         {
-            Vector3d lookVec = playerIn.getLookVec();
-            int forwardNum = 20;
-            BlockRayTraceResult rayTraceResult = RayTraceUtil.getTargetBlockResult(playerIn, worldIn, forwardNum);
+            BlockRayTraceResult rayTraceResult = RayTraceUtil.getTargetBlockResult(playerIn, worldIn, ItemConfig.enderTorchMaxTravelDistance.get());
             EnderTorchEntity enderTorchEntity = new EnderTorchEntity(worldIn, playerIn.getPosX(), playerIn.getPosYHeight(0.5D), playerIn.getPosZ());
             enderTorchEntity.assignItem(itemstack);
             enderTorchEntity.moveTowards(rayTraceResult.getPos());

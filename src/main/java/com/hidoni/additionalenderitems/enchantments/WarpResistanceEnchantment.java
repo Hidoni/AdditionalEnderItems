@@ -1,5 +1,6 @@
 package com.hidoni.additionalenderitems.enchantments;
 
+import com.hidoni.additionalenderitems.config.EnchantmentConfig;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.ProtectionEnchantment;
@@ -22,17 +23,20 @@ public class WarpResistanceEnchantment extends Enchantment
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack)
     {
-        return super.canApplyAtEnchantingTable(stack);
+        return EnchantmentConfig.warpResistanceEnabled.get() && super.canApplyAtEnchantingTable(stack);
     }
 
     @Override
     public boolean canApplyTogether(Enchantment ench)
     {
-        if (ench instanceof ProtectionEnchantment)
+        if (EnchantmentConfig.warpResistanceWithFeatherFalling.get())
         {
-            if (((ProtectionEnchantment) ench).protectionType == ProtectionEnchantment.Type.FALL)
+            if (ench instanceof ProtectionEnchantment)
             {
-                return false;
+                if (((ProtectionEnchantment) ench).protectionType == ProtectionEnchantment.Type.FALL)
+                {
+                    return false;
+                }
             }
         }
         return super.canApplyTogether(ench);
