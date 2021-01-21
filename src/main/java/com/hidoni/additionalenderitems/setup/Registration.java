@@ -6,6 +6,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -20,6 +21,7 @@ public class Registration
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, AdditionalEnderItems.MOD_ID);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, AdditionalEnderItems.MOD_ID);
     public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, AdditionalEnderItems.MOD_ID);
+    public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, AdditionalEnderItems.MOD_ID);
 
 
     public static void register()
@@ -31,6 +33,7 @@ public class Registration
         ENTITIES.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
         CONTAINERS.register(modEventBus);
+        RECIPE_SERIALIZERS.register(modEventBus);
 
         ModBlocks.register();
         ModItems.register();
@@ -38,5 +41,6 @@ public class Registration
         ModEntities.register();
         ModTileEntities.register();
         ModContainers.register();
+        ModRecipes.register();
     }
 }

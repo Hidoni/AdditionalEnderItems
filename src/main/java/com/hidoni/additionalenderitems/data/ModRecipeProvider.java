@@ -2,10 +2,8 @@ package com.hidoni.additionalenderitems.data;
 
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModItems;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
+import com.hidoni.additionalenderitems.setup.ModRecipes;
+import net.minecraft.data.*;
 import net.minecraft.item.Items;
 
 import java.util.function.Consumer;
@@ -45,5 +43,13 @@ public class ModRecipeProvider extends RecipeProvider
                 .key('Y', Items.JUKEBOX)
                 .addCriterion("has_item", hasItem(Items.ENDER_PEARL))
                 .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.PEARL_STACK.get())
+                .patternLine("XX")
+                .patternLine("XX")
+                .key('X', Items.ENDER_PEARL)
+                .addCriterion("has_item", hasItem(Items.ENDER_PEARL))
+                .build(consumer);
+
+        CustomRecipeBuilder.customRecipe(ModRecipes.PEARL_STACK_RECIPE.get()).build(consumer, "pearl_stack_recipe");
     }
 }
