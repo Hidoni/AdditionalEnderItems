@@ -36,8 +36,6 @@ public class EnderJukeboxBlock extends ContainerBlock
 {
     public static final BooleanProperty HAS_RECORD = BlockStateProperties.HAS_RECORD;
 
-    @OnlyIn(Dist.CLIENT)
-
     public EnderJukeboxBlock(Properties properties)
     {
         super(properties);
