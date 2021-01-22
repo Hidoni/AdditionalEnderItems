@@ -90,12 +90,14 @@ public class RefillPearlStackRecipe extends SpecialRecipe
                 int otherItemPearls = item.getTag().getInt("pearls");
                 if (otherItemPearls >= maxPearlsToTake)
                 {
-                    item.getTag().putInt("pearls", otherItemPearls - maxPearlsToTake);
-                    outItem.getTag().putInt("newPearls", currentPearls + maxPearlsToTake);
+                    item.getTag().putInt("newPearls", otherItemPearls - maxPearlsToTake);
+                    item.getTag().putBoolean("shouldReturn", true);
+                    outItem.getTag().putInt("pearls", currentPearls + maxPearlsToTake);
                 }
                 else
                 {
                     item.getTag().putInt("newPearls", 0);
+                    item.getTag().putBoolean("shouldReturn", true);
                     outItem.getTag().putInt("pearls", currentPearls + otherItemPearls);
                 }
             }
