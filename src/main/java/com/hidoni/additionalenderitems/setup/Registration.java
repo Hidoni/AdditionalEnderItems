@@ -26,6 +26,7 @@ public class Registration
 
     public static void register()
     {
+        AdditionalEnderItems.LOGGER.info("Starting DeferredRegister Setup!");
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
@@ -42,5 +43,6 @@ public class Registration
         ModTileEntities.register();
         ModContainers.register();
         ModRecipes.register();
+        AdditionalEnderItems.LOGGER.info("Finished DeferredRegister Setup!");
     }
 }

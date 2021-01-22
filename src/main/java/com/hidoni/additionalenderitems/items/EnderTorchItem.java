@@ -1,5 +1,6 @@
 package com.hidoni.additionalenderitems.items;
 
+import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import com.hidoni.additionalenderitems.config.ItemConfig;
 import com.hidoni.additionalenderitems.entities.EnderTorchEntity;
 import com.hidoni.additionalenderitems.util.RayTraceUtil;
@@ -50,6 +51,7 @@ public class EnderTorchItem extends BlockItem
 
             playerIn.addStat(Stats.ITEM_USED.get(this));
             playerIn.swing(handIn, true);
+            AdditionalEnderItems.LOGGER.debug("Launched Ender Torch Entity from " + playerIn.getPosition() + " towards " + rayTraceResult.getPos());
             return ActionResult.resultSuccess(itemstack);
         }
 

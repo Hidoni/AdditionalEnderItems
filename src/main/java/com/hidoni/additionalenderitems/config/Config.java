@@ -30,9 +30,11 @@ public class Config
 
     public static void loadConfig(ForgeConfigSpec config, String path)
     {
+        AdditionalEnderItems.LOGGER.debug("Beginning config loading!");
         final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().autosave().writingMode(WritingMode.REPLACE).build();
         file.load();
         config.setConfig(file);
+        AdditionalEnderItems.LOGGER.debug("Finished config loading!");
     }
 
     public static void init()

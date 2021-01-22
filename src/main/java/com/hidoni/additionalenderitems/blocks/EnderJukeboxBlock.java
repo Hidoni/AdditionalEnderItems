@@ -1,5 +1,6 @@
 package com.hidoni.additionalenderitems.blocks;
 
+import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import com.hidoni.additionalenderitems.network.Networking;
 import com.hidoni.additionalenderitems.network.PacketStartJukebox;
 import com.hidoni.additionalenderitems.network.PacketStopJukebox;
@@ -70,6 +71,7 @@ public class EnderJukeboxBlock extends ContainerBlock
                     currentItem.shrink(1);
                 }
                 player.addStat(Stats.PLAY_RECORD);
+                AdditionalEnderItems.LOGGER.debug("Playing music disc " + currentItem.getDisplayName() + " at " + pos);
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
             }
             return ActionResultType.PASS;
