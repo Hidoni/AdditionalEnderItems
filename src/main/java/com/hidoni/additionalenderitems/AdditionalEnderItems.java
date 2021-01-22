@@ -29,7 +29,7 @@ public class AdditionalEnderItems
 {
     public static final String MOD_ID = "additionalenderitems";
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public AdditionalEnderItems()
     {
@@ -64,9 +64,6 @@ public class AdditionalEnderItems
 
     private void doClientStuff(final FMLClientSetupEvent event)
     {
-        // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
-
         ClientEventHandler.handleClientLoading(event);
     }
 

@@ -23,38 +23,63 @@ public class PearlStackItem extends Item
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-        if (playerIn.getCooldownTracker().hasCooldown(Items.ENDER_PEARL))
+        ItemStack heldItem = playerIn.getHeldItem(handIn);
+        if (!heldItem.hasTag())
         {
-            playerIn.getCooldownTracker().setCooldown(this, (int)playerIn.getCooldownTracker().getCooldown(Items.ENDER_PEARL, 0));
-        }
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (!itemstack.hasTag())
-        {
-            itemstack.setTag(createNBT());
-        }
-        int pearlCount = itemstack.getTag().getInt("pearls");
-        if (pearlCount == 0)
-        {
-            return ActionResult.resultFail(itemstack);
-        }
-        worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-        playerIn.getCooldownTracker().setCooldown(this, 20);
-        playerIn.getCooldownTracker().setCooldown(Items.ENDER_PEARL, 20);
-        if (!worldIn.isRemote)
-        {
-            EnderPearlEntity enderpearlentity = new EnderPearlEntity(worldIn, playerIn);
-            enderpearlentity.setItem(new ItemStack(Items.ENDER_PEARL));
-            enderpearlentity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            worldIn.addEntity(enderpearlentity);
+            heldItem.setTag(createNBT());
         }
 
-        playerIn.addStat(Stats.ITEM_USED.get(this));
-        if (!playerIn.abilities.isCreativeMode)
+        if (ItemConfig.refillPearlsByCrouch.get() && playerIn.isCrouching())
         {
-            itemstack.getTag().putInt("pearls", pearlCount - 1);
+            for (ItemStack inventoryItem : playerIn.inventory.mainInventory)
+            {
+                if (inventoryItem.getItem() == Items.ENDER_PEARL)
+                {
+                    int currentPearls = heldItem.getTag().getInt("pearls");
+                    int maxPearlsToTake = ItemConfig.maxPearlsInStackItem.get() - currentPearls;
+                    int otherItemPearls = inventoryItem.getCount();
+                    if (otherItemPearls >= maxPearlsToTake)
+                    {
+                        inventoryItem.shrink(maxPearlsToTake);
+                        heldItem.getTag().putInt("pearls", currentPearls + maxPearlsToTake);
+                    }
+                    else
+                    {
+                        inventoryItem.setCount(0);
+                        heldItem.getTag().putInt("pearls", currentPearls + otherItemPearls);
+                    }
+                }
+            }
         }
+        else
+        {
+            if (playerIn.getCooldownTracker().hasCooldown(Items.ENDER_PEARL))
+            {
+                playerIn.getCooldownTracker().setCooldown(this, (int) playerIn.getCooldownTracker().getCooldown(Items.ENDER_PEARL, 1.0F));
+            }
+            int pearlCount = heldItem.getTag().getInt("pearls");
+            if (pearlCount == 0)
+            {
+                return ActionResult.resultFail(heldItem);
+            }
+            worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+            playerIn.getCooldownTracker().setCooldown(this, 20);
+            playerIn.getCooldownTracker().setCooldown(Items.ENDER_PEARL, 20);
+            if (!worldIn.isRemote)
+            {
+                EnderPearlEntity enderpearlentity = new EnderPearlEntity(worldIn, playerIn);
+                enderpearlentity.setItem(new ItemStack(Items.ENDER_PEARL));
+                enderpearlentity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+                worldIn.addEntity(enderpearlentity);
+            }
 
-        return ActionResult.func_233538_a_(itemstack, worldIn.isRemote());
+            playerIn.addStat(Stats.ITEM_USED.get(this));
+            if (!playerIn.abilities.isCreativeMode)
+            {
+                heldItem.getTag().putInt("pearls", pearlCount - 1);
+            }
+        }
+        return ActionResult.func_233538_a_(heldItem, worldIn.isRemote());
     }
 
     @Override
@@ -87,14 +112,20 @@ public class PearlStackItem extends Item
     }
 
     @Override
+    public boolean hasContainerItem(ItemStack itemStack)
+    {
+        return itemStack.hasTag() && itemStack.getTag().getBoolean("shouldReturn");
+    }
+
+    @Override
     public ItemStack getContainerItem(ItemStack itemStack)
     {
-        if (itemStack.getTag().getBoolean("shouldReturn"))
+        if (itemStack.hasTag() && itemStack.getTag().getBoolean("shouldReturn"))
         {
             ItemStack returnStack = new ItemStack(ModItems.PEARL_STACK.get(), 1);
             returnStack.setTag(createNBT());
             returnStack.getTag().putInt("pearls", itemStack.getTag().getInt("newPearls"));
-            return itemStack;
+            return returnStack;
         }
         return ItemStack.EMPTY;
     }

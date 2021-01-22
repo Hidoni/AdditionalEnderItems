@@ -77,11 +77,11 @@ public class RefillPearlStackRecipe extends SpecialRecipe
         if (!primary.hasTag())
         {
             primary.setTag(PearlStackItem.createNBT());
-            primary.getTag().putBoolean("shouldReturn", false);
         }
         ItemStack outItem = new ItemStack(ModItems.PEARL_STACK.get(), 1);
         outItem.setTag(PearlStackItem.createNBT());
         outItem.getTag().putInt("pearls", primary.getTag().getInt("pearls"));
+        primary.getTag().putBoolean("shouldReturn", false);
         for (ItemStack item : itemList)
         {
             if (item.getItem() == ModItems.PEARL_STACK.get())
