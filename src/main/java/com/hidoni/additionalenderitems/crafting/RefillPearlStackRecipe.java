@@ -1,18 +1,17 @@
 package com.hidoni.additionalenderitems.crafting;
 
 import com.google.common.collect.Lists;
-import com.hidoni.additionalenderitems.config.Config;
 import com.hidoni.additionalenderitems.config.ItemConfig;
 import com.hidoni.additionalenderitems.items.PearlStackItem;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import com.hidoni.additionalenderitems.setup.ModRecipes;
-import javafx.util.Pair;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class RefillPearlStackRecipe extends SpecialRecipe
         List<ItemStack> list = Lists.newArrayList();
         boolean pearlStackFound = false;
         boolean pearlFound = false;
-        for(int i = 0; i < inv.getSizeInventory(); ++i)
+        for (int i = 0; i < inv.getSizeInventory(); ++i)
         {
             ItemStack itemstack = inv.getStackInSlot(i);
             if (!itemstack.isEmpty())
@@ -58,12 +57,12 @@ public class RefillPearlStackRecipe extends SpecialRecipe
     @Override
     public ItemStack getCraftingResult(CraftingInventory inv)
     {
-        Pair<Boolean, List<ItemStack>> validAndList = getValidAndList(inv);
-        if (!validAndList.getKey())
+        Tuple<Boolean, List<ItemStack>> validAndList = getValidAndList(inv);
+        if (!validAndList.getA())
         {
             return ItemStack.EMPTY;
         }
-        List<ItemStack> itemList = validAndList.getValue();
+        List<ItemStack> itemList = validAndList.getB();
         ItemStack primary = null;
         for (ItemStack item : itemList)
         {
@@ -124,12 +123,12 @@ public class RefillPearlStackRecipe extends SpecialRecipe
         return ModRecipes.PEARL_STACK_RECIPE.get();
     }
 
-    public Pair<Boolean, List<ItemStack>> getValidAndList(CraftingInventory inv)
+    public Tuple<Boolean, List<ItemStack>> getValidAndList(CraftingInventory inv)
     {
         List<ItemStack> list = Lists.newArrayList();
         boolean pearlStackFound = false;
         boolean pearlFound = false;
-        for(int i = 0; i < inv.getSizeInventory(); ++i)
+        for (int i = 0; i < inv.getSizeInventory(); ++i)
         {
             ItemStack itemstack = inv.getStackInSlot(i);
             if (!itemstack.isEmpty())
@@ -145,11 +144,11 @@ public class RefillPearlStackRecipe extends SpecialRecipe
                 }
                 else
                 {
-                    return new Pair(false, list);
+                    return new Tuple(false, list);
                 }
             }
         }
         boolean allPearlStacksFlag = list.size() == 2 && list.get(0).getItem() == list.get(1).getItem() && list.get(0).getItem() == ModItems.PEARL_STACK.get();
-        return new Pair((pearlStackFound && pearlFound) || allPearlStacksFlag, list);
+        return new Tuple((pearlStackFound && pearlFound) || allPearlStacksFlag, list);
     }
 }
