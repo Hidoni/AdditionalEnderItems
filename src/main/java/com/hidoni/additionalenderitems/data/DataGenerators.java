@@ -20,7 +20,7 @@ public class DataGenerators
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event)
     {
-        AdditionalEnderItems.LOGGER.info("Beginning Data Generation!");
+        AdditionalEnderItems.LOGGER.info("Beginning Data Generation Registration!");
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper fileHelper = event.getExistingFileHelper();
 
@@ -35,6 +35,6 @@ public class DataGenerators
 
         generator.addProvider(new ModRecipeProvider(generator));
         generator.addProvider(new ModLootTableProvider(generator));
-        AdditionalEnderItems.LOGGER.info("Finished Data Generation!");
+        AdditionalEnderItems.LOGGER.info("Finished Data Generation Registration!");
     }
 }

@@ -142,9 +142,24 @@ public class PearlStackItem extends Item
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        if (stack.hasTag())
+        if (!stack.hasTag())
         {
-            tooltip.add(new StringTextComponent(String.valueOf(stack.getTag().getInt("pearls")) + '/' + ItemConfig.maxPearlsInStackItem.get().toString() + " pearls").setStyle(Style.EMPTY.createStyleFromFormattings(TextFormatting.DARK_GRAY)));
+            stack.setTag(createNBT());
         }
+        tooltip.add(new StringTextComponent(String.valueOf(stack.getTag().getInt("pearls")) + '/' + ItemConfig.maxPearlsInStackItem.get().toString() + " pearls").setStyle(Style.EMPTY.createStyleFromFormattings(TextFormatting.GRAY)));
+    }
+
+    @Override
+    public boolean hasEffect(ItemStack stack)
+    {
+        if (!stack.hasTag())
+        {
+            return super.hasEffect(stack);
+        }
+        else if (stack.getTag().getInt("pearls") == 0)
+        {
+            return super.hasEffect(stack);
+        }
+        return true; // If we have any pearls in the sack, make it glow.
     }
 }

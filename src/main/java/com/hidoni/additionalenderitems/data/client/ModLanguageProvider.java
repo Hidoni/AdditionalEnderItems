@@ -21,7 +21,7 @@ public class ModLanguageProvider extends LanguageProvider
     {
         add(ModItems.ENDER_TORCH.get(), "Ender Torch");
         add(ModItems.ENDER_PHANTOM_SPAWN_EGG.get(), "Ender Phantom Spawn Egg");
-        add(ModItems.PEARL_STACK.get(), "Ender Pearl Stack");
+        add(ModItems.PEARL_STACK.get(), "Warped Pearl Bundle");
         add(ModBlocks.DISENCHANTING_TABLE.get(), "Disenchantment Table");
         add(ModBlocks.ENDER_JUKEBOX.get(), "Ender Jukebox");
 

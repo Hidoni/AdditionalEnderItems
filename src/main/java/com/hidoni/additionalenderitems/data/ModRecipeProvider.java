@@ -44,9 +44,11 @@ public class ModRecipeProvider extends RecipeProvider
                 .addCriterion("has_item", hasItem(Items.ENDER_PEARL))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.PEARL_STACK.get())
-                .patternLine("XX")
-                .patternLine("XX")
-                .key('X', Items.ENDER_PEARL)
+                .patternLine("Y Y")
+                .patternLine("YXY")
+                .patternLine("YYY")
+                .key('X', Items.ENDER_EYE)
+                .key('Y', Items.LEATHER)
                 .addCriterion("has_item", hasItem(Items.ENDER_PEARL))
                 .build(consumer);
 
