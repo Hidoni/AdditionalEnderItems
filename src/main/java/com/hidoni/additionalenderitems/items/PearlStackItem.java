@@ -3,6 +3,7 @@ package com.hidoni.additionalenderitems.items;
 import com.hidoni.additionalenderitems.config.Config;
 import com.hidoni.additionalenderitems.config.ItemConfig;
 import com.hidoni.additionalenderitems.setup.ModItems;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EnderPearlEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -11,7 +12,13 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class PearlStackItem extends Item
 {
@@ -128,5 +135,16 @@ public class PearlStackItem extends Item
             return returnStack;
         }
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        if (stack.hasTag())
+        {
+            tooltip.add(new StringTextComponent(String.valueOf(stack.getTag().getInt("pearls")) + '/' + ItemConfig.maxPearlsInStackItem.get().toString() + " pearls").setStyle(Style.EMPTY.createStyleFromFormattings(TextFormatting.DARK_GRAY)));
+        }
     }
 }
