@@ -146,11 +146,11 @@ public class RefillPearlStackRecipe extends SpecialRecipe
                 }
                 else
                 {
-                    return new Tuple(false, list);
+                    return new Tuple<Boolean, List<ItemStack>>(false, list);
                 }
             }
         }
         boolean allPearlStacksFlag = list.size() == 2 && list.get(0).getItem() == list.get(1).getItem() && list.get(0).getItem() == ModItems.PEARL_STACK.get();
-        return new Tuple((pearlStackFound && pearlFound) || allPearlStacksFlag, list);
+        return new Tuple<Boolean, List<ItemStack>>((pearlStackFound && pearlFound) || allPearlStacksFlag, list);
     }
 }
