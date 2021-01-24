@@ -3,6 +3,7 @@ package com.hidoni.additionalenderitems.data;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import com.hidoni.additionalenderitems.setup.ModRecipes;
+import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
 
@@ -50,6 +51,10 @@ public class ModRecipeProvider extends RecipeProvider
                 .key('X', Items.ENDER_EYE)
                 .key('Y', Items.LEATHER)
                 .addCriterion("has_item", hasItem(Items.ENDER_PEARL))
+                .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(Items.ELYTRA)
+                .addIngredient(ModItems.DYEABLE_ELYTRA.get())
+                .addCriterion("not_unlockable", hasItem(Items.AIR)) // Should hopefully allow this recipe to be unobtainable
                 .build(consumer);
 
         CustomRecipeBuilder.customRecipe(ModRecipes.PEARL_STACK_RECIPE.get()).build(consumer, "pearl_stack_recipe");
