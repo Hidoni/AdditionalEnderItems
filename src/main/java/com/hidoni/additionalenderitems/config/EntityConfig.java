@@ -4,11 +4,15 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class EntityConfig
 {
+    public static ForgeConfigSpec.BooleanValue enderPhantomMobEnabled;
     public static ForgeConfigSpec.DoubleValue enderPhantomBaseHealth;
     public static ForgeConfigSpec.DoubleValue enderPhantomBaseDamage;
 
     public static void init(ForgeConfigSpec.Builder commonBuilder)
     {
+        enderPhantomMobEnabled = commonBuilder
+                .comment("Controls whether Ender Phantoms can spawn (requires reload)")
+                .define("entitises.enable_ender_phantom", true);
         enderPhantomBaseHealth = commonBuilder
                 .comment("Sets the base health of the Ender Phantom")
                 .defineInRange("entities.ender_phantom_base_health", 40.0D, 1.0D, Double.MAX_VALUE);

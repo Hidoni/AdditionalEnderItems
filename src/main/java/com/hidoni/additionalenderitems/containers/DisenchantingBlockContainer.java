@@ -91,13 +91,16 @@ public class DisenchantingBlockContainer extends Container
                 boolean playerInSurvival = !playerEntityIn.isCreative();
                 if (playerInSurvival)
                 {
-                    if ((BlockConfig.disenchantingCursedItemPenalty.get() && removedEnchantment.isCurse()) || (BlockConfig.disenchantingTreasureItemPenalty.get() && removedEnchantment.isTreasureEnchantment()))
+                    if (BlockConfig.disenchantingCostsXP.get())
                     {
-                        removedEnchantmentLevelRequirement = 5;
-                    }
-                    else
-                    {
-                        removedEnchantmentLevelRequirement = 3;
+                        if ((BlockConfig.disenchantingCursedItemPenalty.get() && removedEnchantment.isCurse()) || (BlockConfig.disenchantingTreasureItemPenalty.get() && removedEnchantment.isTreasureEnchantment()))
+                        {
+                            removedEnchantmentLevelRequirement = 5;
+                        }
+                        else
+                        {
+                            removedEnchantmentLevelRequirement = 3;
+                        }
                     }
                     if (playerEntityIn.experienceLevel < removedEnchantmentLevelRequirement)
                     {
@@ -202,13 +205,20 @@ public class DisenchantingBlockContainer extends Container
                 this.detectAndSendChanges();
                 return;
             }
-            if ((BlockConfig.disenchantingCursedItemPenalty.get() && enchantmentToRemove.isCurse()) || (BlockConfig.disenchantingTreasureItemPenalty.get() && enchantmentToRemove.isTreasureEnchantment()))
+            if (BlockConfig.disenchantingCostsXP.get())
             {
-                requiredLevel = 5;
+                if ((BlockConfig.disenchantingCursedItemPenalty.get() && enchantmentToRemove.isCurse()) || (BlockConfig.disenchantingTreasureItemPenalty.get() && enchantmentToRemove.isTreasureEnchantment()))
+                {
+                    requiredLevel = 5;
+                }
+                else
+                {
+                    requiredLevel = 3;
+                }
             }
             else
             {
-                requiredLevel = 3;
+                requiredLevel = 0;
             }
             ItemStack outStack = createEnchantedBook(enchantmentToRemove, enchantmentLevel);
             this.outputInventory.setInventorySlotContents(0, outStack);
@@ -242,15 +252,19 @@ public class DisenchantingBlockContainer extends Container
 
     private Integer calculateFinalCost(Integer originalCost, Enchantment enchantment)
     {
-        if (enchantment.isCurse())
+        if (!BlockConfig.disenchantingPhantomMembraneUsesStaticCost.get())
         {
-            return 5;
+            if (enchantment.isCurse())
+            {
+                return 5;
+            }
+            if (enchantment.isTreasureEnchantment())
+            {
+                return originalCost + 3;
+            }
+            return originalCost;
         }
-        if (enchantment.isTreasureEnchantment())
-        {
-            return originalCost + 3;
-        }
-        return originalCost;
+        return BlockConfig.disenchantingPhantomMembraneStaticCost.get();
     }
 
     @Override
