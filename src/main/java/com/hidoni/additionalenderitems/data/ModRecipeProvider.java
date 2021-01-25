@@ -52,11 +52,8 @@ public class ModRecipeProvider extends RecipeProvider
                 .key('Y', Items.LEATHER)
                 .addCriterion("has_item", hasItem(Items.ENDER_PEARL))
                 .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(Items.ELYTRA)
-                .addIngredient(ModItems.DYEABLE_ELYTRA.get())
-                .addCriterion("not_unlockable", hasItem(Items.AIR)) // Should hopefully allow this recipe to be unobtainable
-                .build(consumer);
 
         CustomRecipeBuilder.customRecipe(ModRecipes.PEARL_STACK_RECIPE.get()).build(consumer, "pearl_stack_recipe");
+        CustomRecipeBuilder.customRecipe(ModRecipes.ELYTRA_DYE_RECIPE.get()).build(consumer, "elytra_dye_recipe");
     }
 }

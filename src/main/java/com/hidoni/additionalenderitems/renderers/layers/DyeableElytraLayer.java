@@ -41,42 +41,37 @@ public class DyeableElytraLayer<T extends LivingEntity, M extends EntityModel<T>
     {
         ItemStack elytra = entitylivingbaseIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
         List<Float> colors = getColors(elytra);
-        if (colors != null)
+        if (colors != null && shouldRender(elytra, entitylivingbaseIn))
         {
-            ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
-            if (shouldRender(itemstack, entitylivingbaseIn))
+            ResourceLocation elytraTexture;
+            if (entitylivingbaseIn instanceof AbstractClientPlayerEntity)
             {
-                ResourceLocation resourcelocation;
-                if (entitylivingbaseIn instanceof AbstractClientPlayerEntity)
+                AbstractClientPlayerEntity abstractclientplayerentity = (AbstractClientPlayerEntity) entitylivingbaseIn;
+                if (abstractclientplayerentity.isPlayerInfoSet() && abstractclientplayerentity.getLocationElytra() != null)
                 {
-                    AbstractClientPlayerEntity abstractclientplayerentity = (AbstractClientPlayerEntity) entitylivingbaseIn;
-                    if (abstractclientplayerentity.isPlayerInfoSet() && abstractclientplayerentity.getLocationElytra() != null)
-                    {
-                        resourcelocation = abstractclientplayerentity.getLocationElytra();
-                    }
-                    else if (abstractclientplayerentity.hasPlayerInfo() && abstractclientplayerentity.getLocationCape() != null && abstractclientplayerentity.isWearing(PlayerModelPart.CAPE))
-                    {
-                        resourcelocation = abstractclientplayerentity.getLocationCape();
-                    }
-                    else
-                    {
-                        resourcelocation = getElytraTexture(itemstack, entitylivingbaseIn);
-                    }
+                    elytraTexture = abstractclientplayerentity.getLocationElytra();
+                }
+                else if (abstractclientplayerentity.hasPlayerInfo() && abstractclientplayerentity.getLocationCape() != null && abstractclientplayerentity.isWearing(PlayerModelPart.CAPE))
+                {
+                    elytraTexture = abstractclientplayerentity.getLocationCape();
                 }
                 else
                 {
-                    resourcelocation = getElytraTexture(itemstack, entitylivingbaseIn);
+                    elytraTexture = getElytraTexture(elytra, entitylivingbaseIn);
                 }
-
-                matrixStackIn.push();
-                matrixStackIn.translate(0.0D, 0.0D, 0.125D);
-                this.getEntityModel().copyModelAttributesTo(this.modelElytra);
-                this.modelElytra.setRotationAngles(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-                IVertexBuilder ivertexbuilder = ItemRenderer.getArmorVertexBuilder(bufferIn, RenderType.getArmorCutoutNoCull(resourcelocation), false, itemstack.hasEffect());
-                ivertexbuilder.color(colors.get(0), colors.get(1), colors.get(2), 1.0F);
-                this.modelElytra.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-                matrixStackIn.pop();
             }
+            else
+            {
+                elytraTexture = getElytraTexture(elytra, entitylivingbaseIn);
+            }
+
+            matrixStackIn.push();
+            matrixStackIn.translate(0.0D, 0.0D, 0.125D);
+            this.getEntityModel().copyModelAttributesTo(this.modelElytra);
+            this.modelElytra.setRotationAngles(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+            IVertexBuilder ivertexbuilder = ItemRenderer.getArmorVertexBuilder(bufferIn, RenderType.getArmorCutoutNoCull(elytraTexture), false, elytra.hasEffect());
+            this.modelElytra.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, colors.get(0), colors.get(1), colors.get(2), 1.0F);
+            matrixStackIn.pop();
         }
     }
 
