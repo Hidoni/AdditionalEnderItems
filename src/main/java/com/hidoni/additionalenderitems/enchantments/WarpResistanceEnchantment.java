@@ -29,7 +29,7 @@ public class WarpResistanceEnchantment extends Enchantment
     @Override
     public boolean canApplyTogether(Enchantment ench)
     {
-        if (EnchantmentConfig.warpResistanceWithFeatherFalling.get())
+        if (!EnchantmentConfig.warpResistanceWithFeatherFalling.get())
         {
             if (ench instanceof ProtectionEnchantment)
             {
