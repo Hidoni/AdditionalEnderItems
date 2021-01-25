@@ -59,14 +59,6 @@ public class AdditionalEnderItems
         MinecraftForge.EVENT_BUS.register(new BiomeLoadingHandler());
         LOGGER.info("Registering Mob Attributes!");
         GlobalEntityTypeAttributes.put(ModEntities.ENDER_PHANTOM.get(), MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.MAX_HEALTH, EntityConfig.enderPhantomBaseHealth.get()).create());
-        ItemModelsProperties.registerProperty(ModItems.DYEABLE_ELYTRA.get(), new ResourceLocation("broken_elytra"), new IItemPropertyGetter()
-        {
-            @Override
-            public float call(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity)
-            {
-                return DyeableElytraItem.isUsable(stack) ? 0 : 1;
-            }
-        });
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)

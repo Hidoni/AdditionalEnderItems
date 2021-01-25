@@ -1,28 +1,24 @@
 package com.hidoni.additionalenderitems.renderers.layers;
 
+import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import com.hidoni.additionalenderitems.items.DyeableElytraItem;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.client.renderer.entity.model.ElytraModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +26,7 @@ import java.util.List;
 public class DyeableElytraLayer<T extends LivingEntity, M extends EntityModel<T>> extends ElytraLayer<T, M>
 {
     private final ElytraModel<T> modelElytra = new ElytraModel<>();
+    private static final ResourceLocation TEXTURE_DYEABLE_ELYTRA = new ResourceLocation(AdditionalEnderItems.MOD_ID, "textures/entity/elytra.png");
     public DyeableElytraLayer(IEntityRenderer rendererIn)
     {
         super(rendererIn);
@@ -79,6 +76,15 @@ public class DyeableElytraLayer<T extends LivingEntity, M extends EntityModel<T>
     public boolean shouldRender(ItemStack stack, LivingEntity entity)
     {
         return stack.getItem() == ModItems.DYEABLE_ELYTRA.get();
+    }
+
+    @Override
+    public ResourceLocation getElytraTexture(ItemStack stack, T entity) {
+        if (((DyeableElytraItem)stack.getItem()).hasColor(stack))
+        {
+            return TEXTURE_DYEABLE_ELYTRA;
+        }
+        return super.getElytraTexture(stack, entity);
     }
 
     public List<Float> getColors(ItemStack elytraIn)
