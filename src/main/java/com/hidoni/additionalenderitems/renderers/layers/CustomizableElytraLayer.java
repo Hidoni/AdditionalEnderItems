@@ -23,11 +23,11 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DyeableElytraLayer<T extends LivingEntity, M extends EntityModel<T>> extends ElytraLayer<T, M>
+public class CustomizableElytraLayer<T extends LivingEntity, M extends EntityModel<T>> extends ElytraLayer<T, M>
 {
     private final ElytraModel<T> modelElytra = new ElytraModel<>();
     private static final ResourceLocation TEXTURE_DYEABLE_ELYTRA = new ResourceLocation(AdditionalEnderItems.MOD_ID, "textures/entity/elytra.png");
-    public DyeableElytraLayer(IEntityRenderer rendererIn)
+    public CustomizableElytraLayer(IEntityRenderer rendererIn)
     {
         super(rendererIn);
     }
