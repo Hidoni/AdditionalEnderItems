@@ -1,6 +1,5 @@
 package com.hidoni.additionalenderitems.events;
 
-import com.hidoni.additionalenderitems.items.DyeableElytraItem;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,6 +15,6 @@ public class ItemColorHandler
     {
         event.getItemColors().register((stack, color) -> {
             return color > 0 ? -1 : ((IDyeableArmorItem)stack.getItem()).getColor(stack);
-        }, ModItems.DYEABLE_ELYTRA.get());
+        }, ModItems.CUSTOMIZABLE_ELYTRA.get());
     }
 }

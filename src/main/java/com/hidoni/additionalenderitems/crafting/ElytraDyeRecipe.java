@@ -3,7 +3,6 @@ package com.hidoni.additionalenderitems.crafting;
 import com.google.common.collect.Lists;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import com.hidoni.additionalenderitems.setup.ModRecipes;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;
@@ -14,7 +13,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Map;
 
 public class ElytraDyeRecipe extends SpecialRecipe
 {
@@ -76,7 +74,7 @@ public class ElytraDyeRecipe extends SpecialRecipe
                 }
             }
         }
-        ItemStack dyeableElytraItem = new ItemStack(ModItems.DYEABLE_ELYTRA.get(), elytraItem.getCount());
+        ItemStack dyeableElytraItem = new ItemStack(ModItems.CUSTOMIZABLE_ELYTRA.get(), elytraItem.getCount());
         EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(elytraItem), dyeableElytraItem);
         if (!elytraItem.getDisplayName().equals(new TranslationTextComponent(Items.ELYTRA.getTranslationKey())))
         {

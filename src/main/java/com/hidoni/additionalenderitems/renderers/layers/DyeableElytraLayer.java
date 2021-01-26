@@ -1,7 +1,7 @@
 package com.hidoni.additionalenderitems.renderers.layers;
 
 import com.hidoni.additionalenderitems.AdditionalEnderItems;
-import com.hidoni.additionalenderitems.items.DyeableElytraItem;
+import com.hidoni.additionalenderitems.items.CustomizableElytraItem;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -75,12 +75,12 @@ public class DyeableElytraLayer<T extends LivingEntity, M extends EntityModel<T>
     @Override
     public boolean shouldRender(ItemStack stack, LivingEntity entity)
     {
-        return stack.getItem() == ModItems.DYEABLE_ELYTRA.get();
+        return stack.getItem() == ModItems.CUSTOMIZABLE_ELYTRA.get();
     }
 
     @Override
     public ResourceLocation getElytraTexture(ItemStack stack, T entity) {
-        if (((DyeableElytraItem)stack.getItem()).hasColor(stack))
+        if (((CustomizableElytraItem)stack.getItem()).hasColor(stack))
         {
             return TEXTURE_DYEABLE_ELYTRA;
         }
@@ -90,9 +90,9 @@ public class DyeableElytraLayer<T extends LivingEntity, M extends EntityModel<T>
     public List<Float> getColors(ItemStack elytraIn)
     {
         ArrayList<Float> colorOut = new ArrayList<>();
-        if (elytraIn.getItem() == ModItems.DYEABLE_ELYTRA.get())
+        if (elytraIn.getItem() == ModItems.CUSTOMIZABLE_ELYTRA.get())
         {
-            int color = ((DyeableElytraItem) elytraIn.getItem()).getColor(elytraIn);
+            int color = ((CustomizableElytraItem) elytraIn.getItem()).getColor(elytraIn);
             float redValue = (float) (color >> 16 & 255) / 255.0F;
             float greenValue = (float) (color >> 8 & 255) / 255.0F;
             float blueValue = (float) (color & 255) / 255.0F;

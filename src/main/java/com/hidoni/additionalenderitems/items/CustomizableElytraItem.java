@@ -8,9 +8,9 @@ import net.minecraft.nbt.CompoundNBT;
 
 import javax.annotation.Nullable;
 
-public class DyeableElytraItem extends ElytraItem implements IDyeableArmorItem
+public class CustomizableElytraItem extends ElytraItem implements IDyeableArmorItem
 {
-    public DyeableElytraItem(Properties builder)
+    public CustomizableElytraItem(Properties builder)
     {
         super(builder);
     }

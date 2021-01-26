@@ -2,7 +2,7 @@ package com.hidoni.additionalenderitems.events;
 
 import com.hidoni.additionalenderitems.entities.EnderTorchEntity;
 import com.hidoni.additionalenderitems.gui.DisenchantingBlockContainerScreen;
-import com.hidoni.additionalenderitems.items.DyeableElytraItem;
+import com.hidoni.additionalenderitems.items.CustomizableElytraItem;
 import com.hidoni.additionalenderitems.renderers.EnderPhantomEntityRenderer;
 import com.hidoni.additionalenderitems.renderers.EnderTorchTileEntityRenderer;
 import com.hidoni.additionalenderitems.renderers.layers.DyeableElytraLayer;
@@ -42,12 +42,12 @@ public class ClientEventHandler
         playerRenderer = Minecraft.getInstance().getRenderManager().getSkinMap().get("default");
         playerRenderer.addLayer(new DyeableElytraLayer<>(playerRenderer));
 
-        ItemModelsProperties.registerProperty(ModItems.DYEABLE_ELYTRA.get(), new ResourceLocation("broken_elytra"), new IItemPropertyGetter()
+        ItemModelsProperties.registerProperty(ModItems.CUSTOMIZABLE_ELYTRA.get(), new ResourceLocation("broken_elytra"), new IItemPropertyGetter()
         {
             @Override
             public float call(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity)
             {
-                return DyeableElytraItem.isUsable(stack) ? 0 : 1;
+                return CustomizableElytraItem.isUsable(stack) ? 0 : 1;
             }
         });
     }
