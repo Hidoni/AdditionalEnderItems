@@ -5,7 +5,7 @@ import com.hidoni.additionalenderitems.gui.DisenchantingBlockContainerScreen;
 import com.hidoni.additionalenderitems.items.CustomizableElytraItem;
 import com.hidoni.additionalenderitems.renderers.EnderPhantomEntityRenderer;
 import com.hidoni.additionalenderitems.renderers.EnderTorchTileEntityRenderer;
-import com.hidoni.additionalenderitems.renderers.layers.DyeableElytraLayer;
+import com.hidoni.additionalenderitems.renderers.layers.CustomizableElytraLayer;
 import com.hidoni.additionalenderitems.setup.*;
 import com.hidoni.additionalenderitems.util.MusicDiscPlayingUtil;
 import net.minecraft.client.Minecraft;
@@ -38,9 +38,9 @@ public class ClientEventHandler
         ScreenManager.registerFactory(ModContainers.DISENCHANTING_TABLE.get(), DisenchantingBlockContainerScreen::new);
 
         PlayerRenderer playerRenderer = Minecraft.getInstance().getRenderManager().getSkinMap().get("slim");
-        playerRenderer.addLayer(new DyeableElytraLayer<>(playerRenderer));
+        playerRenderer.addLayer(new CustomizableElytraLayer<>(playerRenderer));
         playerRenderer = Minecraft.getInstance().getRenderManager().getSkinMap().get("default");
-        playerRenderer.addLayer(new DyeableElytraLayer<>(playerRenderer));
+        playerRenderer.addLayer(new CustomizableElytraLayer<>(playerRenderer));
 
         ItemModelsProperties.registerProperty(ModItems.CUSTOMIZABLE_ELYTRA.get(), new ResourceLocation("broken_elytra"), new IItemPropertyGetter()
         {
