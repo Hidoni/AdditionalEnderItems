@@ -74,15 +74,15 @@ public class ElytraDyeRecipe extends SpecialRecipe
                 }
             }
         }
-        ItemStack dyeableElytraItem = new ItemStack(ModItems.CUSTOMIZABLE_ELYTRA.get(), elytraItem.getCount());
-        EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(elytraItem), dyeableElytraItem);
+        ItemStack customizableElytraItem = new ItemStack(ModItems.CUSTOMIZABLE_ELYTRA.get(), elytraItem.getCount());
+        EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(elytraItem), customizableElytraItem);
         if (!elytraItem.getDisplayName().equals(new TranslationTextComponent(Items.ELYTRA.getTranslationKey())))
         {
-            dyeableElytraItem.setDisplayName(elytraItem.getDisplayName());
+            customizableElytraItem.setDisplayName(elytraItem.getDisplayName());
         }
-        dyeableElytraItem.setDamage(elytraItem.getDamage());
-        dyeableElytraItem.setRepairCost(elytraItem.getRepairCost());
-        return !elytraItem.isEmpty() && !list.isEmpty() ? IDyeableArmorItem.dyeItem(dyeableElytraItem, list) : ItemStack.EMPTY;
+        customizableElytraItem.setDamage(elytraItem.getDamage());
+        customizableElytraItem.setRepairCost(elytraItem.getRepairCost());
+        return !elytraItem.isEmpty() && !list.isEmpty() ? IDyeableArmorItem.dyeItem(customizableElytraItem, list) : ItemStack.EMPTY;
     }
 
     @Override
