@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.client.renderer.entity.model.ElytraModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerModelPart;
@@ -35,7 +36,6 @@ public class CustomizableElytraLayer<T extends LivingEntity, M extends EntityMod
 {
     private final ElytraModel<T> modelElytra = new ElytraModel<>();
     private static final ResourceLocation TEXTURE_DYEABLE_ELYTRA = new ResourceLocation(AdditionalEnderItems.MOD_ID, "textures/entity/elytra.png");
-    private static final ResourceLocation TEXTURE_BANNER_ELYTRA_BASE = new ResourceLocation(AdditionalEnderItems.MOD_ID, "textures/entity/elytra_banner.png");
     public CustomizableElytraLayer(IEntityRenderer rendererIn)
     {
         super(rendererIn);
@@ -47,20 +47,23 @@ public class CustomizableElytraLayer<T extends LivingEntity, M extends EntityMod
     {
         ItemStack elytra = entitylivingbaseIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
         CompoundNBT blockEntityTag = elytra.getChildTag("BlockEntityTag");
-        if (blockEntityTag == null)
+        if (shouldRender(elytra, entitylivingbaseIn))
         {
-            renderDyed(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, elytra);
-        }
-        else
-        {
-            renderBanner(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, elytra);
+            if (blockEntityTag == null)
+            {
+                renderDyed(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, elytra);
+            }
+            else
+            {
+                renderBanner(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, elytra);
+            }
         }
     }
 
     public void renderDyed(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack elytra)
     {
         List<Float> colors = getColors(elytra);
-        if (colors != null && shouldRender(elytra, entitylivingbaseIn))
+        if (colors != null)
         {
             ResourceLocation elytraTexture;
             if (entitylivingbaseIn instanceof AbstractClientPlayerEntity)
@@ -104,14 +107,13 @@ public class CustomizableElytraLayer<T extends LivingEntity, M extends EntityMod
         IVertexBuilder ivertexbuilder = ItemRenderer.getArmorVertexBuilder(bufferIn, RenderType.getArmorCutoutNoCull(elytraTexture), false, elytra.hasEffect());
         this.modelElytra.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 
-        /*p_241717_4_.render(p_241717_0_, p_241717_5_.getItemRendererBuffer(p_241717_1_, RenderType::getEntitySolid, p_241717_8_), p_241717_2_, p_241717_3_);*/
         List<Pair<BannerPattern, DyeColor>> list = BannerTileEntity.getPatternColorData(ShieldItem.getColor(elytra), BannerTileEntity.getPatternData(elytra));
 
         for(int i = 0; i < 17 && i < list.size(); ++i) {
             Pair<BannerPattern, DyeColor> pair = list.get(i);
             float[] afloat = pair.getSecond().getColorComponentValues();
-            RenderMaterial rendermaterial = new RenderMaterial(Atlases.BANNER_ATLAS, pair.getFirst().getTextureLocation(true));
-            this.modelElytra.render(matrixStackIn, rendermaterial.getBuffer(bufferIn, RenderType::getEntityNoOutline), packedLightIn, OverlayTexture.NO_OVERLAY, afloat[0], afloat[1], afloat[2], 1.0F);
+            RenderMaterial rendermaterial = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, CustomizableElytraItem.getTextureLocation(pair.getFirst()));
+            this.modelElytra.render(matrixStackIn, rendermaterial.getBuffer(bufferIn, RenderType::getArmorCutoutNoCull), packedLightIn, OverlayTexture.NO_OVERLAY, afloat[0], afloat[1], afloat[2], 1.0F);
         }
         matrixStackIn.pop();
     }
@@ -124,9 +126,12 @@ public class CustomizableElytraLayer<T extends LivingEntity, M extends EntityMod
 
     @Override
     public ResourceLocation getElytraTexture(ItemStack stack, T entity) {
-        if (((CustomizableElytraItem)stack.getItem()).hasColor(stack))
+        if (stack.getItem() == ModItems.CUSTOMIZABLE_ELYTRA.get())
         {
-            return TEXTURE_DYEABLE_ELYTRA;
+            if (((CustomizableElytraItem) stack.getItem()).hasColor(stack))
+            {
+                return TEXTURE_DYEABLE_ELYTRA;
+            }
         }
         return super.getElytraTexture(stack, entity);
     }
