@@ -1,7 +1,6 @@
 package com.hidoni.additionalenderitems.events;
 
 import com.hidoni.additionalenderitems.AdditionalEnderItems;
-import com.hidoni.additionalenderitems.items.CustomizableElytraItem;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.ResourceLocation;
@@ -24,21 +23,6 @@ public class AtlasStitchingHandler
             {
                 AdditionalEnderItems.LOGGER.error("Failed to add ender_torch to texture atlas!");
             }
-
-            for (BannerPattern bannerpattern : BannerPattern.values())
-            {
-                ResourceLocation textureLocation = CustomizableElytraItem.getTextureLocation(bannerpattern);
-                succeeded = event.addSprite(textureLocation);
-                if (!succeeded)
-                {
-                    AdditionalEnderItems.LOGGER.error("Failed to add " + textureLocation + " to texture atlas!");
-                }
-                else
-                {
-                    AdditionalEnderItems.LOGGER.debug("Added " + textureLocation + " to texture atlas.");
-                }
-            }
-
         }
     }
 }
