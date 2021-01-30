@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "XYX",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:ender_pearl"
+    },
+    "Y": {
+      "item": "minecraft:jukebox"
+    }
+  },
+  "result": {
+    "item": "additionalenderitems:ender_jukebox"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XZX",
+    "XXX",
+    "YYY"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:phantom_membrane"
+    },
+    "Y": {
+      "item": "minecraft:end_stone"
+    },
+    "Z": {
+      "item": "minecraft:lapis_lazuli"
+    }
+  },
+  "result": {
+    "item": "additionalenderitems:disenchanting_table"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "block.additionalenderitems.disenchanting_table": "Disenchantment Table",
+  "block.additionalenderitems.ender_jukebox": "Ender Jukebox",
+  "block.additionalenderitems.ender_torch": "Ender Torch",
+  "container.disenchanting_table_title": "Disenchanting Table",
+  "enchantment.additionalenderitems.warp_resistance": "Warp Resistance",
+  "entity.additionalenderitems.ender_phantom": "Ender Phantom",
+  "item.additionalenderitems.ender_phantom_spawn_egg": "Ender Phantom Spawn Egg",
+  "item.additionalenderitems.pearl_stack": "Warped Pearl Bundle",
+  "itemGroup.additionalenderitemsitemgroup": "Additional Ender Items"
+}

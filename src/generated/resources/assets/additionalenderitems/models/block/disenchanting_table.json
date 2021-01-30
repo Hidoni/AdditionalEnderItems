@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "additionalenderitems:block/disenchanting_table_side",
+    "bottom": "additionalenderitems:block/disenchanting_table_bottom",
+    "top": "additionalenderitems:block/disenchanting_table_top"
+  }
+}
