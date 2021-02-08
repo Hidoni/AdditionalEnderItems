@@ -1,0 +1,11 @@
+{
+  "block.additionalenderitems.disenchanting_table": "마법 부여 분리대",
+  "block.additionalenderitems.ender_jukebox": "엔더 주크박스",
+  "block.additionalenderitems.ender_torch": "엔더 횃불",
+  "container.disenchanting_table_title": "마법 부여 분리대",
+  "enchantment.additionalenderitems.warp_resistance": "워프 저항",
+  "entity.additionalenderitems.ender_phantom": "엔더 팬텀",
+  "item.additionalenderitems.ender_phantom_spawn_egg": "엔더 팬텀 생성 알",
+  "item.additionalenderitems.pearl_stack": "엔더 진주 꾸러미",
+  "itemGroup.additionalenderitemsitemgroup": "Additional Ender Items"
+}
