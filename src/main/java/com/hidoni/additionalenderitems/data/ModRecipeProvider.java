@@ -52,6 +52,14 @@ public class ModRecipeProvider extends RecipeProvider
                 .key('Y', Items.LEATHER)
                 .addCriterion("has_item", hasItem(Items.ENDER_PEARL))
                 .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.WARP_PORTAL.get())
+                .patternLine("XXX")
+                .patternLine("YYY")
+                .patternLine("YYY")
+                .key('X', Items.ENDER_EYE)
+                .key('Y', Items.END_STONE)
+                .addCriterion("has_item", hasItem(Items.END_STONE))
+                .build(consumer);
 
         CustomRecipeBuilder.customRecipe(ModRecipes.PEARL_STACK_RECIPE.get()).build(consumer, "pearl_stack_recipe");
     }

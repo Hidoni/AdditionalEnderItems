@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "YYY",
+    "YYY"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:ender_eye"
+    },
+    "Y": {
+      "item": "minecraft:end_stone"
+    }
+  },
+  "result": {
+    "item": "additionalenderitems:warp_portal"
+  }
+}

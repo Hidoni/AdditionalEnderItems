@@ -92,9 +92,8 @@ public class WarpPortalBlock extends Block
             {
                 setPlayerWarpPosition(player, pos);
                 player.sendMessage(new TranslationTextComponent(END_WARP_LOCATION_SET), Util.DUMMY_UUID);
-                return ActionResultType.func_233537_a_(worldIn.isRemote);
             }
-            return ActionResultType.PASS;
+            return ActionResultType.func_233537_a_(worldIn.isRemote);
         }
         if (!worldIn.isRemote && warpPos != null) // Other worlds functionality, warping to set location.
         {
@@ -217,7 +216,7 @@ public class WarpPortalBlock extends Block
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        if (!isEmpty(stateIn) && (rand.nextInt(MAX_CHARGES) - stateIn.get(CHARGES)) <= 0)
+        if (!isEmpty(stateIn) && (rand.nextInt(MAX_CHARGES) - stateIn.get(CHARGES)) < 0)
         {
             double d0 = (double) pos.getX() + rand.nextDouble();
             double d1 = (double) pos.getY() + 0.8D;
