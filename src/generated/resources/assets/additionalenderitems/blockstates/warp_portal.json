@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "charges=0": {
+      "model": "additionalenderitems:block/warp_portal_0"
+    },
+    "charges=1": {
+      "model": "additionalenderitems:block/warp_portal_1"
+    },
+    "charges=2": {
+      "model": "additionalenderitems:block/warp_portal_2"
+    },
+    "charges=3": {
+      "model": "additionalenderitems:block/warp_portal_3"
+    },
+    "charges=4": {
+      "model": "additionalenderitems:block/warp_portal_4"
+    },
+    "charges=5": {
+      "model": "additionalenderitems:block/warp_portal_5"
+    },
+    "charges=6": {
+      "model": "additionalenderitems:block/warp_portal_6"
+    },
+    "charges=7": {
+      "model": "additionalenderitems:block/warp_portal_7"
+    },
+    "charges=8": {
+      "model": "additionalenderitems:block/warp_portal_8"
+    }
+  }
+}

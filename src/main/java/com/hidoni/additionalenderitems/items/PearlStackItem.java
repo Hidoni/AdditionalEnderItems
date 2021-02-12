@@ -22,6 +22,9 @@ import java.util.List;
 
 public class PearlStackItem extends Item
 {
+
+    public static final String PEARL_TOOLTIP = "item.additionalenderitems.pearl_stack_string";
+
     public PearlStackItem(Properties properties)
     {
         super(properties);
@@ -146,7 +149,7 @@ public class PearlStackItem extends Item
         {
             stack.setTag(createNBT());
         }
-        tooltip.add(new StringTextComponent(String.valueOf(stack.getTag().getInt("pearls")) + '/' + ItemConfig.maxPearlsInStackItem.get().toString() + " pearls").setStyle(Style.EMPTY.createStyleFromFormattings(TextFormatting.GRAY)));
+        tooltip.add(new StringTextComponent(String.valueOf(stack.getTag().getInt("pearls")) + '/' + ItemConfig.maxPearlsInStackItem.get().toString() + " " + (new TranslationTextComponent(PEARL_TOOLTIP)).getString()).setStyle(Style.EMPTY.createStyleFromFormattings(TextFormatting.GRAY)));
     }
 
     @Override

@@ -1,0 +1,20 @@
+{
+  "ender_torch_launch":
+  {
+    "category": "entity",
+    "subtitle": "subtitles.entity.additionalenderitems.ender_torch_launch",
+    "sounds": ["minecraft:entity/endereye/endereye_launch1", "minecraft:entity/endereye/endereye_launch2"]
+  },
+  "ender_torch_place":
+  {
+    "category": "entity",
+    "subtitle": "subtitles.entity.additionalenderitems.ender_torch_place",
+    "sounds": ["minecraft:entity/endereye/dead1", "minecraft:entity/endereye/dead2"]
+  },
+  "warp_portal_charge":
+  {
+    "category": "block",
+    "subtitle": "subtitles.block.additionalenderitems.warp_portal_charge",
+    "sounds": ["minecraft:block/end_portal/eyeplace1", "minecraft:block/end_portal/eyeplace2", "minecraft:block/end_portal/eyeplace3"]
+  }
+}

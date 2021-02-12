@@ -3,6 +3,7 @@ package com.hidoni.additionalenderitems.entities;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModEntities;
 import com.hidoni.additionalenderitems.setup.ModItems;
+import com.hidoni.additionalenderitems.setup.ModSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -254,7 +255,7 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
             ++this.despawnTimer;
             if (this.despawnTimer > 80 && !this.world.isRemote)
             {
-                this.playSound(SoundEvents.ENTITY_ENDER_EYE_DEATH, 1.0F, 1.0F);
+                this.playSound(ModSoundEvents.ENDER_TORCH_PLACE.get(), 1.0F, 1.0F);
                 this.remove();
                 ArrayList<BlockState> validAirBlocks = new ArrayList<BlockState>(Arrays.asList(Blocks.AIR.getDefaultState(), Blocks.CAVE_AIR.getDefaultState()));
                 if (validAirBlocks.contains(this.world.getBlockState(this.getPosition())))

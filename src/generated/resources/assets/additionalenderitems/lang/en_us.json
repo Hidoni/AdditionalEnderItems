@@ -1,11 +1,20 @@
 {
   "block.additionalenderitems.disenchanting_table": "Disenchantment Table",
+  "block.additionalenderitems.end_warp_portal_no_charge": "Your end warp portal has no charge.",
   "block.additionalenderitems.ender_jukebox": "Ender Jukebox",
   "block.additionalenderitems.ender_torch": "Ender Torch",
+  "block.additionalenderitems.local_warp_portal_no_charge": "This warp portal has no charge.",
+  "block.additionalenderitems.missing_warp_portal": "You have no end warp portal, or it was obstructed.",
+  "block.additionalenderitems.warp_location_set": "Warp location set.",
+  "block.additionalenderitems.warp_portal": "Warp Portal",
   "container.disenchanting_table_title": "Disenchanting Table",
   "enchantment.additionalenderitems.warp_resistance": "Warp Resistance",
   "entity.additionalenderitems.ender_phantom": "Ender Phantom",
   "item.additionalenderitems.ender_phantom_spawn_egg": "Ender Phantom Spawn Egg",
   "item.additionalenderitems.pearl_stack": "Warped Pearl Bundle",
-  "itemGroup.additionalenderitemsitemgroup": "Additional Ender Items"
+  "item.additionalenderitems.pearl_stack_string": "pearls",
+  "itemGroup.additionalenderitemsitemgroup": "Additional Ender Items",
+  "subtitles.block.additionalenderitems.warp_portal_charge": "Warp Portal Is Charged",
+  "subtitles.entity.additionalenderitems.ender_torch_launch": "Ender Torch Shoots",
+  "subtitles.entity.additionalenderitems.ender_torch_place": "Ender Torch Sets In Place"
 }

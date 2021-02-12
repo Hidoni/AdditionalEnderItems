@@ -1,6 +1,8 @@
 package com.hidoni.additionalenderitems.data.client;
 
 import com.hidoni.additionalenderitems.AdditionalEnderItems;
+import com.hidoni.additionalenderitems.blocks.WarpPortalBlock;
+import com.hidoni.additionalenderitems.items.PearlStackItem;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModEnchantments;
 import com.hidoni.additionalenderitems.setup.ModEntities;
@@ -24,6 +26,7 @@ public class ModLanguageProvider extends LanguageProvider
         add(ModItems.PEARL_STACK.get(), "Warped Pearl Bundle");
         add(ModBlocks.DISENCHANTING_TABLE.get(), "Disenchantment Table");
         add(ModBlocks.ENDER_JUKEBOX.get(), "Ender Jukebox");
+        add(ModBlocks.WARP_PORTAL.get(), "Warp Portal");
 
         add(ModEnchantments.WARP_RESISTANCE.get(), "Warp Resistance");
 
@@ -31,5 +34,14 @@ public class ModLanguageProvider extends LanguageProvider
 
         add("itemGroup.additionalenderitemsitemgroup", "Additional Ender Items");
         add("container.disenchanting_table_title", "Disenchanting Table");
+        add(PearlStackItem.PEARL_TOOLTIP, "pearls");
+        add(WarpPortalBlock.LOCAL_WARP_PORTAL_NO_CHARGE_MESSAGE, "This warp portal has no charge.");
+        add(WarpPortalBlock.END_WARP_PORTAL_NO_CHARGE_MESSAGE, "Your end warp portal has no charge.");
+        add(WarpPortalBlock.END_WARP_PORTAL_MISSING, "You have no end warp portal, or it was obstructed.");
+        add(WarpPortalBlock.END_WARP_LOCATION_SET, "Warp location set.");
+
+        add("subtitles.entity.additionalenderitems.ender_torch_launch", "Ender Torch Shoots");
+        add("subtitles.entity.additionalenderitems.ender_torch_place", "Ender Torch Sets In Place");
+        add("subtitles.block.additionalenderitems.warp_portal_charge", "Warp Portal Is Charged");
     }
 }

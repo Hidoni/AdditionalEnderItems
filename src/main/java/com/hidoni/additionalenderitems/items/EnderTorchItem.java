@@ -3,6 +3,7 @@ package com.hidoni.additionalenderitems.items;
 import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import com.hidoni.additionalenderitems.config.ItemConfig;
 import com.hidoni.additionalenderitems.entities.EnderTorchEntity;
+import com.hidoni.additionalenderitems.setup.ModSoundEvents;
 import com.hidoni.additionalenderitems.util.RayTraceUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +13,6 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -42,8 +42,7 @@ public class EnderTorchItem extends BlockItem
             enderTorchEntity.moveTowards(rayTraceResult.getPos());
             worldIn.addEntity(enderTorchEntity);
 
-            worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-            worldIn.playEvent(null, 1003, playerIn.getPosition(), 0);
+            worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), ModSoundEvents.ENDER_TORCH_LAUNCH.get(), SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
             if (!playerIn.abilities.isCreativeMode)
             {
                 itemstack.shrink(1);
