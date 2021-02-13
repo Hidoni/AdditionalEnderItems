@@ -5,7 +5,6 @@ import com.hidoni.additionalenderitems.config.BlockConfig;
 import com.hidoni.additionalenderitems.setup.ModSoundEvents;
 import com.hidoni.additionalenderitems.tileentities.WarpPortalTileEntity;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -24,6 +23,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -41,7 +41,7 @@ import java.util.Random;
 
 public class WarpPortalBlock extends Block
 {
-    private static final int MAX_CHARGES = 8;
+    public static final int MAX_CHARGES = 8;
     public static final IntegerProperty CHARGES = IntegerProperty.create("charges", 0, MAX_CHARGES);
     ;
     private static final Map<Item, Integer> VALID_ITEMS = new LinkedHashMap<Item, Integer>()
@@ -88,35 +88,42 @@ public class WarpPortalBlock extends Block
         BlockPos warpPos = getPlayerWarpPosition(player);
         if (worldIn.getDimensionKey() == World.THE_END) // End-side functionality, setting warp location.
         {
-            if (warpPos != null && !warpPos.equals(pos))
+            if (!worldIn.isRemote && (warpPos == null || !warpPos.equals(pos)))
             {
                 setPlayerWarpPosition(player, pos);
                 player.sendMessage(new TranslationTextComponent(END_WARP_LOCATION_SET), Util.DUMMY_UUID);
             }
             return ActionResultType.func_233537_a_(worldIn.isRemote);
         }
-        if (!worldIn.isRemote && warpPos != null) // Other worlds functionality, warping to set location.
+        else if (!worldIn.isRemote) // Other worlds functionality, warping to set location.
         {
-            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
-            ServerWorld endWorld = serverPlayerEntity.getServer().getWorld(World.THE_END);
-            IChunk endWorldChunk = endWorld.getChunk(warpPos);
-            BlockState endWorldBlock = endWorldChunk.getBlockState(warpPos);
-            if (endWorldBlock.getBlock() instanceof WarpPortalBlock)
+            if (warpPos != null)
             {
-                if (!isEmpty(state) && !isEmpty(endWorldBlock))
+                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
+                ServerWorld endWorld = serverPlayerEntity.getServer().getWorld(World.THE_END);
+                IChunk endWorldChunk = endWorld.getChunk(warpPos);
+                BlockState endWorldBlock = endWorldChunk.getBlockState(warpPos);
+                if (endWorldBlock.getBlock() instanceof WarpPortalBlock)
                 {
-                    updateChargeAmount(worldIn, pos, state, state.get(CHARGES) - 1);
-                    updateChargeAmount(endWorld, warpPos, endWorldBlock, state.get(CHARGES) - 1);
-                    serverPlayerEntity.teleport(endWorld, warpPos.getX() + 0.5D, warpPos.getY() + 1, warpPos.getZ() + 0.5D, serverPlayerEntity.rotationYaw, serverPlayerEntity.rotationPitch);
-                    serverPlayerEntity.connection.sendPacket(new SPlaySoundEventPacket(1032, pos, 0, false));
-                }
-                else if (isEmpty(state))
-                {
-                    player.sendMessage(new TranslationTextComponent(LOCAL_WARP_PORTAL_NO_CHARGE_MESSAGE), Util.DUMMY_UUID);
+                    if (!isEmpty(state) && !isEmpty(endWorldBlock))
+                    {
+                        updateChargeAmount(worldIn, pos, state, state.get(CHARGES) - 1);
+                        updateChargeAmount(endWorld, warpPos, endWorldBlock, endWorldBlock.get(CHARGES) - 1);
+                        serverPlayerEntity.teleport(endWorld, warpPos.getX() + 0.5D, warpPos.getY() + 1, warpPos.getZ() + 0.5D, serverPlayerEntity.rotationYaw, serverPlayerEntity.rotationPitch);
+                        serverPlayerEntity.connection.sendPacket(new SPlaySoundEventPacket(1032, pos, 0, false));
+                    }
+                    else if (isEmpty(state))
+                    {
+                        player.sendMessage(new TranslationTextComponent(LOCAL_WARP_PORTAL_NO_CHARGE_MESSAGE), Util.DUMMY_UUID);
+                    }
+                    else
+                    {
+                        player.sendMessage(new TranslationTextComponent(END_WARP_PORTAL_NO_CHARGE_MESSAGE), Util.DUMMY_UUID);
+                    }
                 }
                 else
                 {
-                    player.sendMessage(new TranslationTextComponent(END_WARP_PORTAL_NO_CHARGE_MESSAGE), Util.DUMMY_UUID);
+                    player.sendMessage(new TranslationTextComponent(END_WARP_PORTAL_MISSING), Util.DUMMY_UUID);
                 }
             }
             else
@@ -146,17 +153,17 @@ public class WarpPortalBlock extends Block
         warpPositionNBT.putInt("y", pos.getY());
         warpPositionNBT.putInt("z", pos.getZ());
         playerNBT.put(PORTAL_DATA_NBT_KEY, warpPositionNBT);
-        player.getPersistentData().put(player.PERSISTED_NBT_TAG, playerNBT);
+        player.getPersistentData().put(PlayerEntity.PERSISTED_NBT_TAG, playerNBT);
     }
 
     private CompoundNBT getPersistentPlayerData(PlayerEntity player)
     {
         CompoundNBT persistentData = player.getPersistentData();
-        if (!persistentData.contains(player.PERSISTED_NBT_TAG))
+        if (!persistentData.contains(PlayerEntity.PERSISTED_NBT_TAG))
         {
-            persistentData.put(player.PERSISTED_NBT_TAG, new CompoundNBT());
+            persistentData.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
         }
-        return persistentData.getCompound(player.PERSISTED_NBT_TAG);
+        return persistentData.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
     }
 
     public boolean isFullyCharged(BlockState state)
@@ -169,12 +176,12 @@ public class WarpPortalBlock extends Block
         return state.get(CHARGES) == 0;
     }
 
-    public boolean isValidFuel(ItemStack itemIn)
+    public static boolean isValidFuel(ItemStack itemIn)
     {
         return VALID_ITEMS.containsKey(itemIn.getItem());
     }
 
-    public Integer getFuelValue(ItemStack itemIn)
+    public static Integer getFuelValue(ItemStack itemIn)
     {
         if (isValidFuel(itemIn))
         {
@@ -183,13 +190,13 @@ public class WarpPortalBlock extends Block
         return 0;
     }
 
-    public void fuelPortal(World world, BlockPos pos, BlockState state, ItemStack fuel)
+    public static void fuelPortal(World world, BlockPos pos, BlockState state, ItemStack fuel)
     {
         updateChargeAmount(world, pos, state, Math.min(state.get(CHARGES) + getFuelValue(fuel), MAX_CHARGES));
         world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, ModSoundEvents.WARP_PORTAL_CHARGE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
     }
 
-    private void updateChargeAmount(World world, BlockPos pos, BlockState state, int newAmount)
+    private static void updateChargeAmount(World world, BlockPos pos, BlockState state, int newAmount)
     {
         world.setBlockState(pos, state.with(CHARGES, newAmount));
     }
@@ -248,5 +255,19 @@ public class WarpPortalBlock extends Block
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
         return new WarpPortalTileEntity();
+    }
+
+    @Override
+    public boolean hasComparatorInputOverride(BlockState state) {
+        return true;
+    }
+
+    public static int getChargeScale(BlockState state, int scale) {
+        return MathHelper.floor((float)(state.get(CHARGES)) / 8.0F * (float)scale);
+    }
+
+    @Override
+    public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+        return getChargeScale(blockState, 15);
     }
 }

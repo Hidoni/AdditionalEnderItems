@@ -40,8 +40,8 @@ public class ModLanguageProvider extends LanguageProvider
         add(WarpPortalBlock.END_WARP_PORTAL_MISSING, "You have no end warp portal, or it was obstructed.");
         add(WarpPortalBlock.END_WARP_LOCATION_SET, "Warp location set.");
 
-        add("subtitles.entity.additionalenderitems.ender_torch_launch", "Ender Torch Shoots");
-        add("subtitles.entity.additionalenderitems.ender_torch_place", "Ender Torch Sets In Place");
-        add("subtitles.block.additionalenderitems.warp_portal_charge", "Warp Portal Is Charged");
+        add("subtitles.entity.additionalenderitems.ender_torch_launch", "Ender Torch shoots");
+        add("subtitles.entity.additionalenderitems.ender_torch_place", "Ender Torch sets in place");
+        add("subtitles.block.additionalenderitems.warp_portal_charge", "Warp Portal is charged");
     }
 }

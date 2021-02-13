@@ -14,7 +14,7 @@
   "item.additionalenderitems.pearl_stack": "Warped Pearl Bundle",
   "item.additionalenderitems.pearl_stack_string": "pearls",
   "itemGroup.additionalenderitemsitemgroup": "Additional Ender Items",
-  "subtitles.block.additionalenderitems.warp_portal_charge": "Warp Portal Is Charged",
-  "subtitles.entity.additionalenderitems.ender_torch_launch": "Ender Torch Shoots",
-  "subtitles.entity.additionalenderitems.ender_torch_place": "Ender Torch Sets In Place"
+  "subtitles.block.additionalenderitems.warp_portal_charge": "Warp Portal is charged",
+  "subtitles.entity.additionalenderitems.ender_torch_launch": "Ender Torch shoots",
+  "subtitles.entity.additionalenderitems.ender_torch_place": "Ender Torch sets in place"
 }
