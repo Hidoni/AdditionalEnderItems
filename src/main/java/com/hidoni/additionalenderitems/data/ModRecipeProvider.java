@@ -1,5 +1,6 @@
 package com.hidoni.additionalenderitems.data;
 
+import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import com.hidoni.additionalenderitems.setup.ModRecipes;
@@ -66,6 +67,6 @@ public class ModRecipeProvider extends RecipeProvider
                 .addCriterion("has_item", hasItem(Items.DRAGON_BREATH))
                 .build(consumer);
 
-        CustomRecipeBuilder.customRecipe(ModRecipes.PEARL_STACK_RECIPE.get()).build(consumer, "pearl_stack_recipe");
+        CustomRecipeBuilder.customRecipe(ModRecipes.PEARL_STACK_RECIPE.get()).build(consumer, AdditionalEnderItems.MOD_ID + ":pearl_stack_recipe");
     }
 }
