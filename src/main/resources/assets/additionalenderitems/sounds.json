@@ -16,5 +16,11 @@
     "category": "block",
     "subtitle": "subtitles.block.additionalenderitems.warp_portal_charge",
     "sounds": ["minecraft:block/end_portal/eyeplace1", "minecraft:block/end_portal/eyeplace2", "minecraft:block/end_portal/eyeplace3"]
+  },
+  "dragon_charge_launch":
+  {
+    "category": "entity",
+    "subtitle": "subtitles.entity.additionalenderitems.dragon_charge_launch",
+    "sounds": ["minecraft:mob/ghast/fireball4"]
   }
 }

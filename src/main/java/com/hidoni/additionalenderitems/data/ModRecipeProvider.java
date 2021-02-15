@@ -60,6 +60,11 @@ public class ModRecipeProvider extends RecipeProvider
                 .key('Y', Items.END_STONE)
                 .addCriterion("has_item", hasItem(Items.END_STONE))
                 .build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.DRAGON_CHARGE.get())
+                .addIngredient(Items.FIRE_CHARGE)
+                .addIngredient(Items.DRAGON_BREATH)
+                .addCriterion("has_item", hasItem(Items.DRAGON_BREATH))
+                .build(consumer);
 
         CustomRecipeBuilder.customRecipe(ModRecipes.PEARL_STACK_RECIPE.get()).build(consumer, "pearl_stack_recipe");
     }

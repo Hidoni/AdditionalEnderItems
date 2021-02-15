@@ -27,11 +27,17 @@ public class ModItemModelProvider extends ItemModelProvider
 
         builder(itemGenerated, "ender_torch");
         builder(itemGenerated, "pearl_stack");
+        builder(itemGenerated, "dragon_charge", mcLoc("entity/enderdragon/dragon_fireball"));
     }
 
     private ItemModelBuilder builder(ModelFile itemGenerated, String name)
     {
         return getBuilder(name).parent(itemGenerated).texture("layer0", "item/" + name);
+    }
+
+    private ItemModelBuilder builder(ModelFile itemGenerated, String name, ResourceLocation texture)
+    {
+        return getBuilder(name).parent(itemGenerated).texture("layer0", texture);
     }
 
 }
