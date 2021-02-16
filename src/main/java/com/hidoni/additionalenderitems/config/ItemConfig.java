@@ -7,6 +7,7 @@ public class ItemConfig
     public static ForgeConfigSpec.IntValue maxPearlsInStackItem;
     public static ForgeConfigSpec.BooleanValue refillPearlsByCrouch;
     public static ForgeConfigSpec.IntValue enderTorchMaxTravelDistance;
+    public static ForgeConfigSpec.BooleanValue allowDragonChargeToBeShotFromHand;
 
     public static void init(ForgeConfigSpec.Builder commonBuilder)
     {
@@ -21,5 +22,9 @@ public class ItemConfig
         enderTorchMaxTravelDistance = commonBuilder.
                 comment("Controls how far the Ender Torch will fly forward before turning into a block")
                 .defineInRange("items.ender_torch_max_travel_distance", 20, 1, 64);
+
+        allowDragonChargeToBeShotFromHand = commonBuilder.
+                comment("Allows players to right click with a dragon charge while aiming at the air to shoot it forward, similar to the way a dispenser would")
+                .define("items.dragon_charge_allow_shoot_from_hand", true);
     }
 }

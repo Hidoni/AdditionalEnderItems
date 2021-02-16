@@ -1,6 +1,7 @@
 package com.hidoni.additionalenderitems.items;
 
 import com.hidoni.additionalenderitems.AdditionalEnderItems;
+import com.hidoni.additionalenderitems.config.ItemConfig;
 import com.hidoni.additionalenderitems.setup.ModSoundEvents;
 import com.hidoni.additionalenderitems.util.RayTraceUtil;
 import net.minecraft.entity.AreaEffectCloudEntity;
@@ -48,23 +49,26 @@ public class DragonChargeItem extends Item
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if(handIn == Hand.MAIN_HAND)
+        if (ItemConfig.allowDragonChargeToBeShotFromHand.get())
         {
-            DragonFireballEntity dragonFireballEntity = createFireballEntity(worldIn, playerIn);
-            worldIn.addEntity(dragonFireballEntity);
-            worldIn.playSound(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), ModSoundEvents.DRAGON_CHARGE_LAUNCH.get(), SoundCategory.PLAYERS, 10.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
-            if(!playerIn.isCreative())
+            if (handIn == Hand.MAIN_HAND)
             {
-                itemstack.shrink(1);
+                DragonFireballEntity dragonFireballEntity = createFireballEntity(worldIn, playerIn);
+                worldIn.addEntity(dragonFireballEntity);
+                worldIn.playSound(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), ModSoundEvents.DRAGON_CHARGE_LAUNCH.get(), SoundCategory.PLAYERS, 10.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                if (!playerIn.isCreative())
+                {
+                    itemstack.shrink(1);
+                }
+                return ActionResult.func_233538_a_(itemstack, worldIn.isRemote);
             }
-            return ActionResult.func_233538_a_(itemstack, worldIn.isRemote);
         }
         return ActionResult.resultFail(itemstack);
     }
 
     public static AreaEffectCloudEntity createCloudEntity(World worldIn, BlockPos posIn, LivingEntity owner)
     {
-        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(worldIn, posIn.getX(), posIn.getY(), posIn.getZ());
+        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(worldIn, posIn.getX(), posIn.getY() + 1, posIn.getZ());
         if(owner != null)
         {
             areaeffectcloudentity.setOwner(owner);
