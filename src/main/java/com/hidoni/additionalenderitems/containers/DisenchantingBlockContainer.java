@@ -22,6 +22,8 @@ import java.util.Set;
 
 public class DisenchantingBlockContainer extends Container
 {
+    private final IWorldPosCallable worldPosCallable;
+    public int requiredLevel = 0;
     private final IInventory outputInventory = new CraftResultInventory();
     private final IInventory inputInventory = new Inventory(3)
     {
@@ -31,8 +33,6 @@ public class DisenchantingBlockContainer extends Container
             DisenchantingBlockContainer.this.onCraftMatrixChanged(this);
         }
     };
-    private final IWorldPosCallable worldPosCallable;
-    public int requiredLevel = 0;
 
     public DisenchantingBlockContainer(int windowIdIn, PlayerInventory playerInventoryIn)
     {

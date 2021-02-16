@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 public class PacketStartJukebox
 {
     private final BlockPos pos;
-    private int data;
+    private final int data;
 
     public PacketStartJukebox(PacketBuffer buf)
     {

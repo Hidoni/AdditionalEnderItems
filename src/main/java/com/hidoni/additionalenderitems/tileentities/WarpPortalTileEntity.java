@@ -14,7 +14,8 @@ public class WarpPortalTileEntity extends TileEntity
     }
 
     @OnlyIn(Dist.CLIENT)
-    public boolean shouldRenderFace(Direction face) {
+    public boolean shouldRenderFace(Direction face)
+    {
         return face == Direction.UP;
     }
 }

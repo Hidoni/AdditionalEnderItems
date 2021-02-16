@@ -18,7 +18,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -60,6 +59,21 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
     {
         super(ModEntities.ENDER_TORCH.get(), worldIn);
         this.setPosition(packet.getPosX(), packet.getPosY(), packet.getPosZ());
+    }
+
+    protected static float func_234614_e_(float p_234614_0_, float p_234614_1_)
+    {
+        while (p_234614_1_ - p_234614_0_ < -180.0F)
+        {
+            p_234614_0_ -= 360.0F;
+        }
+
+        while (p_234614_1_ - p_234614_0_ >= 180.0F)
+        {
+            p_234614_0_ += 360.0F;
+        }
+
+        return MathHelper.lerp(0.2F, p_234614_0_, p_234614_1_);
     }
 
     @Override
@@ -280,20 +294,5 @@ public class EnderTorchEntity extends Entity implements IRendersAsItem
             this.setRawPosition(d0, d1, d2);
         }
 
-    }
-
-    protected static float func_234614_e_(float p_234614_0_, float p_234614_1_)
-    {
-        while (p_234614_1_ - p_234614_0_ < -180.0F)
-        {
-            p_234614_0_ -= 360.0F;
-        }
-
-        while (p_234614_1_ - p_234614_0_ >= 180.0F)
-        {
-            p_234614_0_ += 360.0F;
-        }
-
-        return MathHelper.lerp(0.2F, p_234614_0_, p_234614_1_);
     }
 }

@@ -6,7 +6,10 @@ import com.hidoni.additionalenderitems.renderers.DispensedDragonFireballEntityRe
 import com.hidoni.additionalenderitems.renderers.EnderPhantomEntityRenderer;
 import com.hidoni.additionalenderitems.renderers.EnderTorchTileEntityRenderer;
 import com.hidoni.additionalenderitems.renderers.WarpPortalTileEntityRenderer;
-import com.hidoni.additionalenderitems.setup.*;
+import com.hidoni.additionalenderitems.setup.ModBlocks;
+import com.hidoni.additionalenderitems.setup.ModContainers;
+import com.hidoni.additionalenderitems.setup.ModEntities;
+import com.hidoni.additionalenderitems.setup.ModTileEntities;
 import com.hidoni.additionalenderitems.util.MusicDiscPlayingUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
@@ -16,8 +19,6 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-
-import javax.annotation.Nullable;
 
 public class ClientEventHandler
 {

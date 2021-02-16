@@ -5,7 +5,6 @@ import com.hidoni.additionalenderitems.items.EnderTorchItem;
 import com.hidoni.additionalenderitems.items.ModdedSpawnEggItem;
 import com.hidoni.additionalenderitems.items.PearlStackItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.Rarity;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ModItems

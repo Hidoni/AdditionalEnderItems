@@ -1,6 +1,5 @@
 package com.hidoni.additionalenderitems.items;
 
-import com.hidoni.additionalenderitems.config.Config;
 import com.hidoni.additionalenderitems.config.ItemConfig;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
@@ -11,7 +10,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,6 +30,15 @@ public class PearlStackItem extends Item
     public PearlStackItem(Properties properties)
     {
         super(properties);
+    }
+
+    public static CompoundNBT createNBT()
+    {
+        CompoundNBT returnNBT = new CompoundNBT();
+        returnNBT.putInt("pearls", 0);
+        returnNBT.putInt("newPearls", 0);
+        returnNBT.putBoolean("shouldReturn", true);
+        return returnNBT;
     }
 
     @Override
@@ -107,18 +118,9 @@ public class PearlStackItem extends Item
     {
         if (stack.hasTag())
         {
-            return 1.0D - (double)stack.getTag().getInt("pearls") / (double) ItemConfig.maxPearlsInStackItem.get();
+            return 1.0D - (double) stack.getTag().getInt("pearls") / (double) ItemConfig.maxPearlsInStackItem.get();
         }
         return 1;
-    }
-
-    public static CompoundNBT createNBT()
-    {
-        CompoundNBT returnNBT = new CompoundNBT();
-        returnNBT.putInt("pearls", 0);
-        returnNBT.putInt("newPearls", 0);
-        returnNBT.putBoolean("shouldReturn", true);
-        return returnNBT;
     }
 
     @Override

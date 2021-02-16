@@ -7,9 +7,8 @@ import java.util.function.Supplier;
 
 public class ModItemGroup extends ItemGroup
 {
-    private final Supplier<ItemStack> displayStack;
-
     public static final ModItemGroup ADDITIONAL_ENDER_ITEMS_GROUP = new ModItemGroup("additionalenderitemsitemgroup", () -> new ItemStack(ModItems.ENDER_TORCH.get()));
+    private final Supplier<ItemStack> displayStack;
 
     public ModItemGroup(String label, Supplier<ItemStack> displayStack)
     {

@@ -43,23 +43,70 @@ public class WarpPortalBlock extends Block
 {
     public static final int MAX_CHARGES = 8;
     public static final IntegerProperty CHARGES = IntegerProperty.create("charges", 0, MAX_CHARGES);
-    ;
-    private static final Map<Item, Integer> VALID_ITEMS = new LinkedHashMap<Item, Integer>()
-    {{
-        put(Items.ENDER_PEARL, BlockConfig.warpPortalPearlFuelValue.get());
-        put(Items.ENDER_EYE, BlockConfig.warpPortalEyeFuelValue.get());
-    }};
     public static final String PORTAL_DATA_NBT_KEY = AdditionalEnderItems.MOD_ID + ":warpportallocation";
     public static final String LOCAL_WARP_PORTAL_NO_CHARGE_MESSAGE = "block.additionalenderitems.local_warp_portal_no_charge";
     public static final String END_WARP_PORTAL_NO_CHARGE_MESSAGE = "block.additionalenderitems.end_warp_portal_no_charge";
     public static final String END_WARP_PORTAL_MISSING = "block.additionalenderitems.missing_warp_portal";
     public static final String END_WARP_LOCATION_SET = "block.additionalenderitems.warp_location_set";
     protected static final VoxelShape BASE_SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 13.0D, 16.0D);
+    private static final Map<Item, Integer> VALID_ITEMS = new LinkedHashMap<Item, Integer>()
+    {{
+        put(Items.ENDER_PEARL, BlockConfig.warpPortalPearlFuelValue.get());
+        put(Items.ENDER_EYE, BlockConfig.warpPortalEyeFuelValue.get());
+    }};
 
     public WarpPortalBlock(Properties properties)
     {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(CHARGES, 0));
+    }
+
+    public static boolean isValidFuel(ItemStack itemIn)
+    {
+        return VALID_ITEMS.containsKey(itemIn.getItem());
+    }
+
+    public static Integer getFuelValue(ItemStack itemIn)
+    {
+        if (isValidFuel(itemIn))
+        {
+            return VALID_ITEMS.get(itemIn.getItem());
+        }
+        return 0;
+    }
+
+    public static void fuelPortal(World world, BlockPos pos, BlockState state, ItemStack fuel)
+    {
+        updateChargeAmount(world, pos, state, Math.min(state.get(CHARGES) + getFuelValue(fuel), MAX_CHARGES));
+        world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, ModSoundEvents.WARP_PORTAL_CHARGE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+    }
+
+    private static void updateChargeAmount(World world, BlockPos pos, BlockState state, int newAmount)
+    {
+        world.setBlockState(pos, state.with(CHARGES, newAmount));
+    }
+
+    public static int getEmittedLightLevel(BlockState state)
+    {
+        int charges = state.get(CHARGES);
+        if (charges == 0)
+        {
+            return 1;
+        }
+        if (charges < 4)
+        {
+            return 3;
+        }
+        if (charges < 8)
+        {
+            return 5;
+        }
+        return 7;
+    }
+
+    public static int getChargeScale(BlockState state, int scale)
+    {
+        return MathHelper.floor((float) (state.get(CHARGES)) / 8.0F * (float) scale);
     }
 
     @Override
@@ -176,49 +223,6 @@ public class WarpPortalBlock extends Block
         return state.get(CHARGES) == 0;
     }
 
-    public static boolean isValidFuel(ItemStack itemIn)
-    {
-        return VALID_ITEMS.containsKey(itemIn.getItem());
-    }
-
-    public static Integer getFuelValue(ItemStack itemIn)
-    {
-        if (isValidFuel(itemIn))
-        {
-            return VALID_ITEMS.get(itemIn.getItem());
-        }
-        return 0;
-    }
-
-    public static void fuelPortal(World world, BlockPos pos, BlockState state, ItemStack fuel)
-    {
-        updateChargeAmount(world, pos, state, Math.min(state.get(CHARGES) + getFuelValue(fuel), MAX_CHARGES));
-        world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, ModSoundEvents.WARP_PORTAL_CHARGE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-    }
-
-    private static void updateChargeAmount(World world, BlockPos pos, BlockState state, int newAmount)
-    {
-        world.setBlockState(pos, state.with(CHARGES, newAmount));
-    }
-
-    public static int getEmittedLightLevel(BlockState state)
-    {
-        int charges = state.get(CHARGES);
-        if (charges == 0)
-        {
-            return 1;
-        }
-        if (charges < 4)
-        {
-            return 3;
-        }
-        if (charges < 8)
-        {
-            return 5;
-        }
-        return 7;
-    }
-
     @Override
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
@@ -258,16 +262,14 @@ public class WarpPortalBlock extends Block
     }
 
     @Override
-    public boolean hasComparatorInputOverride(BlockState state) {
+    public boolean hasComparatorInputOverride(BlockState state)
+    {
         return true;
     }
 
-    public static int getChargeScale(BlockState state, int scale) {
-        return MathHelper.floor((float)(state.get(CHARGES)) / 8.0F * (float)scale);
-    }
-
     @Override
-    public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+    public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
+    {
         return getChargeScale(blockState, 15);
     }
 }

@@ -5,7 +5,6 @@ import com.hidoni.additionalenderitems.entities.EnderPhantomEntity;
 import com.hidoni.additionalenderitems.entities.EnderTorchEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ModEntities

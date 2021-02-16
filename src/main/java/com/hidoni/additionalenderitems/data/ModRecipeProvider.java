@@ -4,7 +4,6 @@ import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
 import com.hidoni.additionalenderitems.setup.ModItems;
 import com.hidoni.additionalenderitems.setup.ModRecipes;
-import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
 

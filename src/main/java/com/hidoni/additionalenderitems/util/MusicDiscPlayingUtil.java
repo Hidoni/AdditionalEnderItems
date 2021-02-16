@@ -22,8 +22,8 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class MusicDiscPlayingUtil
 {
-    private static Minecraft mc = null;
     private static final Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
+    private static Minecraft mc = null;
 
     public static void setMinecraft(Minecraft mcIn)
     {

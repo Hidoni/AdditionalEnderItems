@@ -39,7 +39,7 @@ public class DispensedDragonFireballEntity extends DamagingProjectileEntity
 
     private static double getAccel(int velIn)
     {
-        return ((double)velIn) / 8000.0D;
+        return ((double) velIn) / 8000.0D;
     }
 
     protected void onImpact(RayTraceResult result)

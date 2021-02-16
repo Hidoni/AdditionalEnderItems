@@ -9,9 +9,9 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class Networking
 {
+    private static final String PROTOCOL_VERSION = "1.0";
     private static SimpleChannel INSTANCE;
     private static int ID;
-    private static final String PROTOCOL_VERSION = "1.0";
 
     private static int nextID()
     {

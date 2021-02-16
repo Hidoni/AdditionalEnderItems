@@ -2,7 +2,6 @@ package com.hidoni.additionalenderitems.events;
 
 import com.hidoni.additionalenderitems.AdditionalEnderItems;
 import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;

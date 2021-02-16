@@ -14,8 +14,8 @@ import java.io.File;
 @Mod.EventBusSubscriber
 public class Config
 {
-    private static final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec config;
+    private static final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
     static
     {

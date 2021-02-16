@@ -18,9 +18,9 @@ public class EnderTorchTileEntity extends TileEntity implements ITickableTileEnt
 {
     public long ticks = 0;
     public boolean ON_SOLID_GROUND = false;
-    private float rotation;
     public float nextEyeAngle;
     public float eyeAngle;
+    private float rotation;
 
     public EnderTorchTileEntity()
     {
