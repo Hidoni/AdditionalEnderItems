@@ -2,6 +2,7 @@ package com.hidoni.additionalenderitems.events;
 
 
 import com.hidoni.additionalenderitems.blocks.WarpPortalBlock;
+import com.hidoni.additionalenderitems.entities.DispensedDragonFireballEntity;
 import com.hidoni.additionalenderitems.entities.EnderPhantomEntity;
 import com.hidoni.additionalenderitems.items.ModdedSpawnEggItem;
 import com.hidoni.additionalenderitems.setup.ModBlocks;
@@ -100,7 +101,7 @@ public class RegistryEventsHandler
                 double d3 = random.nextGaussian() * 0.05D + (double) direction.getXOffset();
                 double d4 = random.nextGaussian() * 0.05D + (double) direction.getYOffset();
                 double d5 = random.nextGaussian() * 0.05D + (double) direction.getZOffset();
-                world.addEntity(new DragonFireballEntity(world, d0, d1, d2, d3, d4, d5));
+                world.addEntity(new DispensedDragonFireballEntity(world, d0, d1, d2, d3, d4, d5));
                 stack.shrink(1);
                 return stack;
             }
