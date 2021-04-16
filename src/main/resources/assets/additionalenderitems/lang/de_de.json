@@ -1,0 +1,21 @@
+{
+  "block.additionalenderitems.disenchanting_table": "Entzauberungstisch",
+  "block.additionalenderitems.end_warp_portal_no_charge": "Dein Enderwarpportal hat keine Ladungen.",
+  "block.additionalenderitems.ender_jukebox": "Enderplattenspieler",
+  "block.additionalenderitems.ender_torch": "Enderfackel",
+  "block.additionalenderitems.local_warp_portal_no_charge": "Dieses Warpportal hat keine Ladungen.",
+  "block.additionalenderitems.missing_warp_portal": "Du hast kein Enderwarpportal oder es wurde blockiert.",
+  "block.additionalenderitems.warp_location_set": "Teleportationsort gesetzt",
+  "block.additionalenderitems.warp_portal": "Warpportal",
+  "container.disenchanting_table_title": "Entzauberungstisch",
+  "enchantment.additionalenderitems.warp_resistance": "Teleportationsresistenz",
+  "entity.additionalenderitems.ender_phantom": "Enderphantom",
+  "item.additionalenderitems.dragon_charge": "Drachen-Feuerkugel",
+  "item.additionalenderitems.ender_phantom_spawn_egg": "Erschaffe Enderphantom",
+  "item.additionalenderitems.pearl_stack": "Perlenbeutel",
+  "itemGroup.additionalenderitemsitemgroup": "Zusätzliche Endergegenstände",
+  "subtitles.block.additionalenderitems.warp_portal_charge": "Warp Portal ist geladen",
+  "subtitles.entity.additionalenderitems.dragon_charge_launch": "Drachen-Feuerkugel schießt",
+  "subtitles.entity.additionalenderitems.ender_torch_launch": "Enderfackel schießt",
+  "subtitles.entity.additionalenderitems.ender_torch_place": "Enderfackel wird platziert"
+}
